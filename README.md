@@ -23,7 +23,7 @@
 
 ## Development Roadmap
 
-## Contributing (contributing.md)
+## Contributing
 
 Hey, thanks for your interest in contributing to Disworse! We appreciate your help and taking your time to contribute, but before you start, please check the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
