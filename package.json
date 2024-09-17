@@ -18,10 +18,11 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "type": "module",
     "engines": {
-        "node": ">=20.17.0"
+        "node": ">=20.17.0",
+        "pnpm": ">=9.10.0"
     },
     "packageManager": "pnpm@9.10.0",
     "devDependencies": {
