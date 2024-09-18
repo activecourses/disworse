@@ -1,81 +1,40 @@
-# Turborepo starter
+# Disworse
 
-This is an official starter Turborepo.
+## Features
 
-## Using this example
+## Links
 
-Run the following command:
+## Technology Stack
 
-```sh
-npx create-turbo@latest
-```
+-   ReactJS - JavaScript library for building user interfaces.
+-   NodeJS - JavaScript runtime environment.
+-   NestJS - Node.js framework.
+-   TypeScript - Static typing for JavaScript.
+-   PostgreSQL - Relational database.
+-   Drizzle - Database ORM.
+-   ESLint - Linter.
+-   Prettier - Code formatter.
 
-## What's inside?
+## Getting Started
 
-This Turborepo includes the following packages/apps:
+### Prerequisites
 
-### Apps and Packages
+### Installation Steps
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## Development Roadmap
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Contributing
 
-### Utilities
+Hey, thanks for your interest in contributing to Disworse! We appreciate your help and taking your time to contribute, but before you start, please check the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-This Turborepo has some additional tools already setup for you:
+### Non-substantive changes
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+For any minor updates to the curriculum, such as fixing broken URLs, correcting spelling or syntax errors, and other non-substantive issues, we welcome you to submit a pull request. You can do this by following the guidelines in [pull request guide](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/).
 
-### Build
+### Substantive changes
 
-To build all apps and packages, run the following command:
+If you have specific and substantial feedback or concerns about the content, we encourage you to open an issue. Please refer to [open an issue](https://help.github.com/articles/creating-an-issue/) for assistance.
 
-```
-cd my-turborepo
-pnpm build
-```
+## License
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+This project is licensed under the [MIT License](LICENSE).
