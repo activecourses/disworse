@@ -10,9 +10,7 @@
         "commitlint": "commitlint --edit"
     },
     "lint-staged": {
-        "**/*": [
-            "biome check . --write"
-        ]
+        "**/*": ["biome check . --write"]
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.2",
@@ -27,8 +25,5 @@
         "node": ">=20"
     },
     "packageManager": "npm@10.8.2",
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ]
+    "workspaces": ["apps/*", "packages/*"]
 }
