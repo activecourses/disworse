@@ -2,34 +2,7 @@
     // Editor
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.documentSelectors": ["**/*.astro"],
-    "[astro]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    // ESLint
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
-    "eslint.rules.customizations": [
-        {
-            "rule": "*",
-            "severity": "warn"
-        }
-    ],
-    "eslint.useFlatConfig": true,
-    "eslint.workingDirectories": [
-        { "pattern": "apps/*/" },
-        { "pattern": "packages/*/" },
-        { "pattern": "packages/config/*/" }
-    ],
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "astro",
-        "typescript",
-        "typescriptreact"
-    ],
+    "editor.defaultFormatter": "biomejs.biome",
     // Tailwind
     "files.associations": {
         "*.css": "tailwindcss"
@@ -41,22 +14,23 @@
     // TypeScript
     "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
+    // Formatter
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "biomejs.biome"
     }
 }
