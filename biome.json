@@ -7,10 +7,10 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": [".turbo", "node_modules", "dist"]
+        "ignore": [".turbo", "node_modules", "dist", "package-lock.json"]
     },
     "formatter": {
-        "enabled": false,
+        "enabled": true,
         "indentWidth": 4,
         "indentStyle": "space",
         "lineEnding": "lf"
@@ -22,24 +22,24 @@
         }
     },
     "organizeImports": {
-        "enabled": false
+        "enabled": true
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double"
+        }
     },
     "json": {
         "parser": {
             "allowComments": true
         },
-        "formatter":{
+        "formatter": {
             "indentWidth": 4
         }
     },
     "overrides": [
         {
-            "include": ["apps/api/**/*.{ts,js}"],
-            "javascript": {
-                "formatter": {
-                    "quoteStyle": "single"
-                }
-            },
+            "include": ["apps/api/**/*"],
             "linter": {
                 "rules": {
                     "complexity": {
@@ -68,7 +68,7 @@
             }
         },
         {
-            "include": ["apps/web/**/*.{ts,js,tsx,jsx}"],
+            "include": ["apps/web/**/*"],
             "linter": {
                 "rules": {
                     "complexity": {
@@ -149,9 +149,6 @@
                 }
             },
             "javascript": {
-                "formatter": {
-                    "quoteStyle": "double"
-                },
                 "globals": [
                     "OffscreenCanvas",
                     "onpointerleave",
