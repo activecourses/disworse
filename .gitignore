@@ -140,3 +140,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Frontend
+apps/web/tsconfig.app.tsbuildinfo
+apps/web/tsconfig.node.tsbuildinfo
