@@ -16,45 +16,14 @@ function App() {
 
     return (
         <>
-            <h1
-                className="
-                    text-4xl
-                    font-bold
-                    text-center
-                    text-blue-600
-                "
-            >
+            <h1 className="text-center font-bold text-4xl text-blue-600">
                 Vite + React + GraphQL
             </h1>
-            <div
-                className="
-                    text-lg
-                    text-center
-                    text-gray-600
-                    mt-4
-                "
-            >
-                <h2
-                    className="
-                        text-2xl
-                        font-bold
-                        text-center
-                        text-blue-600
-                    "
-                >
+            <div className="mt-4 text-center text-gray-600 text-lg">
+                <h2 className="text-center font-bold text-2xl text-blue-600">
                     GraphQL Response:
                 </h2>
-                <pre
-                    className="
-                        text-lg
-                        text-center
-                        text-gray-600
-                        mt-4
-                        p-4 bg-gray-100
-                        rounded-lg
-                        overflow-x-auto
-                    "
-                >
+                <pre className="mt-4 overflow-x-auto rounded-lg bg-gray-100 p-4 text-center text-gray-600 text-lg">
                     {JSON.stringify(data, null, 4)}
                 </pre>
             </div>
