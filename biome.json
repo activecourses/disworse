@@ -7,7 +7,13 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": [".turbo", "node_modules", "dist", "package-lock.json"]
+        "ignore": [
+            ".turbo",
+            "node_modules",
+            "dist",
+            "package-lock.json",
+            "schema.gql"
+        ]
     },
     "formatter": {
         "enabled": true,
