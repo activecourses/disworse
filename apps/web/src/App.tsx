@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { graphql } from "gql.tada";
 import request from "graphql-request";
-import "./App.css";
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
 
 const query = graphql(`
     query hello {
@@ -19,25 +16,47 @@ function App() {
 
     return (
         <>
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo react"
-                        alt="React logo"
-                    />
-                </a>
-            </div>
-            <h1>Vite + React + GraphQL</h1>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
-            <div>
-                <h2>GraphQL Response:</h2>
-                <pre> {JSON.stringify(data, null, 4)}</pre>
+            <h1
+                className="
+                    text-4xl
+                    font-bold
+                    text-center
+                    text-blue-600
+                "
+            >
+                Vite + React + GraphQL
+            </h1>
+            <div
+                className="
+                    text-lg
+                    text-center
+                    text-gray-600
+                    mt-4
+                "
+            >
+                <h2
+                    className="
+                        text-2xl
+                        font-bold
+                        text-center
+                        text-blue-600
+                    "
+                >
+                    GraphQL Response:
+                </h2>
+                <pre
+                    className="
+                        text-lg
+                        text-center
+                        text-gray-600
+                        mt-4
+                        p-4 bg-gray-100
+                        rounded-lg
+                        overflow-x-auto
+                    "
+                >
+                    {JSON.stringify(data, null, 4)}
+                </pre>
             </div>
         </>
     );
