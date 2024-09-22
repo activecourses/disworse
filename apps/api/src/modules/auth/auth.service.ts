@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { SignupDto } from "./dto/signup.dto";
 import { hash } from "src/utils/argon2";
+import { SignupDto } from "./dto/signup.dto";
 
 @Injectable()
 export class AuthService {
