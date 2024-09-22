@@ -12,7 +12,8 @@
             "node_modules",
             "dist",
             "package-lock.json",
-            "schema.gql"
+            "schema.graphql",
+            "graphql-env.d.ts"
         ]
     },
     "formatter": {

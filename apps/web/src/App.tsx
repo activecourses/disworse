@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { graphql } from "gql.tada";
+import request from "graphql-request";
+import "./App.css";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
-import "./App.css";
+
+const query = graphql(`
+    query hello {
+        hello
+    }
+`);
 
 function App() {
-    const [count, setCount] = useState(0);
+    const { data } = useQuery({
+        queryKey: ["hello"],
+        queryFn: () => request("http://localhost:3333/graphql", query),
+    });
 
     return (
         <>
@@ -20,18 +31,14 @@ function App() {
                     />
                 </a>
             </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
+            <h1>Vite + React + GraphQL</h1>
             <p className="read-the-docs">
                 Click on the Vite and React logos to learn more
             </p>
+            <div>
+                <h2>GraphQL Response:</h2>
+                <pre> {JSON.stringify(data, null, 4)}</pre>
+            </div>
         </>
     );
 }
