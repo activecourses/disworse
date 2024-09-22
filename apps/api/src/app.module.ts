@@ -1,8 +1,12 @@
+import { join } from "path";
+import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_PIPE } from "@nestjs/core";
+import { GraphQLModule } from "@nestjs/graphql";
 import { ZodValidationPipe } from "nestjs-zod";
 import { AppController } from "./app.controller";
+import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
 import { AuthModule } from "./modules/auth/auth.module";
 
@@ -12,6 +16,10 @@ import { AuthModule } from "./modules/auth/auth.module";
         ConfigModule.forRoot({
             isGlobal: true,
         }),
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            autoSchemaFile: join(process.cwd(), "src/schema.gql"),
+        }),
     ],
     controllers: [AppController],
     providers: [
@@ -20,6 +28,8 @@ import { AuthModule } from "./modules/auth/auth.module";
             provide: APP_PIPE,
             useClass: ZodValidationPipe,
         },
+        ,
+        AppResolver,
     ],
 })
 export class AppModule {}
