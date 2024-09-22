@@ -2,10 +2,13 @@
     "name": "disworse",
     "private": true,
     "scripts": {
+        "preinstall": "npx only-allow pnpm",
         "build": "turbo build",
         "dev": "turbo dev",
-        "format-and-lint": "biome check .",
-        "format-and-lint:fix": "biome check . --write",
+        "typecheck": "turbo typecheck",
+        "lint": "biome check .",
+        "lint:fix": "biome check . --write",
+        "lint:fix:unsafe": "biome check . --write --unsafe",
         "prepare": "husky",
         "commitlint": "commitlint --edit"
     },

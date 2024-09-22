@@ -11,8 +11,9 @@
             ".turbo",
             "node_modules",
             "dist",
-            "package-lock.json",
-            "schema.gql"
+            "pnpm-lock.yaml",
+            "schema.graphql",
+            "graphql-env.d.ts"
         ]
     },
     "formatter": {
@@ -24,7 +25,10 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": false
+            "recommended": false,
+            "nursery": {
+                "useSortedClasses": "error"
+            }
         }
     },
     "organizeImports": {
