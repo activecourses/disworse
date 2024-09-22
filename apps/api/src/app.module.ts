@@ -24,12 +24,11 @@ import { AuthModule } from "./modules/auth/auth.module";
     controllers: [AppController],
     providers: [
         AppService,
+        AppResolver,
         {
             provide: APP_PIPE,
             useClass: ZodValidationPipe,
         },
-        ,
-        AppResolver,
     ],
 })
 export class AppModule {}
