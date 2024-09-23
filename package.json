@@ -7,7 +7,9 @@
         "format-and-lint": "biome check .",
         "format-and-lint:fix": "biome check . --write",
         "prepare": "husky",
-        "commitlint": "commitlint --edit"
+        "commitlint": "commitlint --edit",
+        "compose:up": "docker compose up -d --build",
+        "compose:down": "docker compose down"
     },
     "lint-staged": {
         "**/*": ["biome check . --write"]

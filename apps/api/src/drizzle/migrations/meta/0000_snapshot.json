@@ -1,0 +1,171 @@
+{
+    "id": "9ca872ff-43bc-416e-b94f-76b5891b1eb5",
+    "prevId": "00000000-0000-0000-0000-000000000000",
+    "version": "7",
+    "dialect": "postgresql",
+    "tables": {
+        "public.friends": {
+            "name": "friends",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "serial",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "user_id": {
+                    "name": "user_id",
+                    "type": "varchar(48)",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "friend_id": {
+                    "name": "friend_id",
+                    "type": "varchar(48)",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "created_at": {
+                    "name": "created_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                },
+                "updated_at": {
+                    "name": "updated_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                },
+                "deleted_at": {
+                    "name": "deleted_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {}
+        },
+        "public.users": {
+            "name": "users",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "serial",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "username": {
+                    "name": "username",
+                    "type": "varchar(48)",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "full_name": {
+                    "name": "full_name",
+                    "type": "varchar(64)",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "email": {
+                    "name": "email",
+                    "type": "varchar(64)",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "bio": {
+                    "name": "bio",
+                    "type": "varchar(255)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "dob": {
+                    "name": "dob",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "profile_image_url": {
+                    "name": "profile_image_url",
+                    "type": "varchar(255)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "cover_image_url": {
+                    "name": "cover_image_url",
+                    "type": "varchar(255)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "refresh_token": {
+                    "name": "refresh_token",
+                    "type": "varchar(128)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "google_id": {
+                    "name": "google_id",
+                    "type": "varchar(128)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "github_id": {
+                    "name": "github_id",
+                    "type": "varchar(128)",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "created_at": {
+                    "name": "created_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                },
+                "updated_at": {
+                    "name": "updated_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                },
+                "deleted_at": {
+                    "name": "deleted_at",
+                    "type": "date",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "users_username_unique": {
+                    "name": "users_username_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["username"]
+                },
+                "users_email_unique": {
+                    "name": "users_email_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["email"]
+                }
+            }
+        }
+    },
+    "enums": {},
+    "schemas": {},
+    "sequences": {},
+    "_meta": {
+        "columns": {},
+        "schemas": {},
+        "tables": {}
+    }
+}

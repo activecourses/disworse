@@ -8,7 +8,7 @@
     "scripts": {
         "build": "nest build",
         "start": "nest start",
-        "dev": "nest start --watch",
+        "dev": "nest start --exec \"node --env-file=../../.env.backend\" --watch",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "test": "jest",
@@ -16,12 +16,10 @@
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "db:push": "npx drizzle-kit push --config=./src/drizzle/drizzle.config.ts",
-        "db:generate": "npx drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
-        "db:migrate": "npx drizzle-kit migrate --config=./src/drizzle/drizzle.config.ts",
-        "db:studio": "npx drizzle-kit studio --config=./src/drizzle/drizzle.config.ts",
-        "compose:up": "docker compose --env-file 'apps/api/.env' up -d --build",
-        "compose:down": "docker compose down"
+        "db:push": "drizzle-kit push --config=./drizzle.config.ts",
+        "db:generate": "drizzle-kit generate --config=./drizzle.config.ts",
+        "db:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
+        "db:studio": "drizzle-kit studio --config=./drizzle.config.ts"
     },
     "dependencies": {
         "@apollo/server": "^4.11.0",
