@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+    db:
+        image: postgres:14.1-alpine
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_DB
+            - POSTGRES_USER
+            - POSTGRES_PASSWORD
+
+    # db-test:
+    #     image: postgres:14.1-alpine
+    #     restart: always
+    #     ports:
+    #         - 5433:5432
+    #     environment:
+    #         POSTGRES_DB: disworse-test
+    #         POSTGRES_USER: postgres
+    #         POSTGRES_PASSWORD: postgres
+
+    # redis:
+    #     container_name: cache
+    #     image: redis
+    #     restart: always
+    #     ports:
+    #     - 6379:6379

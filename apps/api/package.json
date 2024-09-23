@@ -19,7 +19,9 @@
         "db:push": "npx drizzle-kit push --config=./src/drizzle/drizzle.config.ts",
         "db:generate": "npx drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
         "db:migrate": "npx drizzle-kit migrate --config=./src/drizzle/drizzle.config.ts",
-        "db:studio": "npx drizzle-kit studio --config=./src/drizzle/drizzle.config.ts"
+        "db:studio": "npx drizzle-kit studio --config=./src/drizzle/drizzle.config.ts",
+        "compose:up": "docker compose --env-file 'apps/api/.env' up -d --build",
+        "compose:down": "docker compose down"
     },
     "dependencies": {
         "@apollo/server": "^4.11.0",
