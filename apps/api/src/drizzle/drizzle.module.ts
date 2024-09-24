@@ -2,20 +2,22 @@ import { DrizzlePGModule } from "@knaadh/nestjs-drizzle-pg";
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as schema from "./schema";
-const ConnectionString = new ConfigService().get("DATABASE_URL");
 
 @Module({
     imports: [
-        DrizzlePGModule.register({
-            tag: "DB_DEV",
-            pg: {
-                connection: "client",
-                config: {
-                    connectionString: ConnectionString,
+        DrizzlePGModule.registerAsync({
+            useFactory: async (configService: ConfigService) => ({
+                pg: {
+                    connection: "pool",
+                    config: {
+                        connectionString:
+                            configService.getOrThrow("DATABASE_URL"),
+                    },
                 },
-            },
-            config: { schema: { ...schema } },
+                config: { schema },
+            }),
+            inject: [ConfigService],
         }),
     ],
 })
-export class AppModule {}
+export class DrizzleModule {}

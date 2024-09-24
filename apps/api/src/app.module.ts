@@ -8,6 +8,7 @@ import { ZodValidationPipe } from "nestjs-zod";
 import { AppController } from "./app.controller";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
+import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
@@ -20,6 +21,7 @@ import { AuthModule } from "./modules/auth/auth.module";
             driver: ApolloDriver,
             autoSchemaFile: join(process.cwd(), "src/schema.gql"),
         }),
+        DrizzleModule,
     ],
     controllers: [AppController],
     providers: [
