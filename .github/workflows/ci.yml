@@ -27,6 +27,7 @@ jobs:
         run: cd apps/api
       - name: Renaming .env.sample to .env.test
         run: mv .env.sample .env
+      - run: pwd
       - name: Starting Docker DB Container
         run: npm run docker
       - name: Running API Tests
