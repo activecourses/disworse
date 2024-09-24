@@ -25,9 +25,9 @@ jobs:
         run: pnpm run lint
       - name: switch to the backend directory
         run: cd apps/api
+      - run: pwd
       - name: Renaming .env.sample to .env.test
         run: mv .env.sample .env
-      - run: pwd
       - name: Starting Docker DB Container
         run: npm run docker
       - name: Running API Tests
