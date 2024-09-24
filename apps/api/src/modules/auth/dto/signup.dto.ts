@@ -1,7 +1,7 @@
 import { createZodDto } from "nestjs-zod";
 import { z } from "nestjs-zod/z";
-import { Password } from "src/common/custom-validation/password";
-import { Username } from "src/common/custom-validation/username";
+import { Password } from "../../../common/custom-validation/password";
+import { Username } from "../../../common/custom-validation/username";
 
 const signupSchema = z.object({
     name: z.string().transform((name) => name.trim()),

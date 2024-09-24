@@ -1,0 +1,31 @@
+name: Backend Continuous Integration Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+        #   cache: 'npm' Is this necessary?
+      - name: Installing Dependencies
+        run: pnpm ci
+      - name: Running lint & format
+        run: pnpm run lint
+      - name: switch to the backend directory
+        run: cd apps/api
+      - name: Renaming .env.sample to .env.test
+        run: mv .env.sample .env
+      - name: Starting Docker DB Container
+        run: npm run docker
+      - name: Running API Tests
+        run: npm run test

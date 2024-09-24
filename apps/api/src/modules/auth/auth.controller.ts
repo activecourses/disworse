@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { SerializedUser } from "src/common/serialized-types/user";
+import { SerializedUser } from "../../common/serialized-types/user";
 import { AuthService } from "./auth.service";
 import { SignupDto } from "./dto/signup.dto";
 
