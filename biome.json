@@ -13,7 +13,8 @@
             "dist",
             "pnpm-lock.yaml",
             "schema.graphql",
-            "graphql-env.d.ts"
+            "graphql-env.d.ts",
+            "./apps/api/coverage"
         ]
     },
     "formatter": {
