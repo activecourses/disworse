@@ -12,13 +12,13 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-        #   cache: 'npm' Is this necessary?
-      - name: enable corepack
-        run: corepack enable
+          cache: 'pnpm'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Installing Dependencies
         run: pnpm install # pnpm does not have ci command
       - name: Running lint & format
@@ -28,10 +28,10 @@ jobs:
         run: mv .env.sample .env
       - name: Starting Docker DB Container
         working-directory: ./apps/api
-        run: npm run docker
+        run: pnpm run docker
       - name: Running API Tests
         working-directory: ./apps/api
-        run: npm run test
+        run: pnpm run test
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:
