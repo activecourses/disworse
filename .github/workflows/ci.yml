@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: lts/*
         #   cache: 'npm' Is this necessary?
+      - name: enable corepack
+        run: corepack enable
       - name: Installing Dependencies
         run: pnpm ci
       - name: Running lint & format
