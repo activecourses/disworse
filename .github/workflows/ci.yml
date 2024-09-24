@@ -20,7 +20,7 @@ jobs:
       - name: enable corepack
         run: corepack enable
       - name: Installing Dependencies
-        run: pnpm ci
+        run: pnpm install # pnpm does not have ci command
       - name: Running lint & format
         run: pnpm run lint
       - name: switch to the backend directory
