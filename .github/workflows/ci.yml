@@ -23,12 +23,12 @@ jobs:
         run: pnpm install # pnpm does not have ci command
       - name: Running lint & format
         run: pnpm run lint
-      - name: switch to the backend directory
-        run: cd apps/api
-      - run: pwd
       - name: Renaming .env.sample to .env.test
+        working-directory: ./apps/api
         run: mv .env.sample .env
       - name: Starting Docker DB Container
+        working-directory: ./apps/api
         run: npm run docker
       - name: Running API Tests
+        working-directory: ./apps/api
         run: npm run test
