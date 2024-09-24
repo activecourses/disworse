@@ -1,10 +1,8 @@
 CREATE TABLE IF NOT EXISTS "friends" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"user_id" varchar(48) NOT NULL,
-	"friend_id" varchar(48) NOT NULL,
+	"user1_id" integer NOT NULL,
+	"user2_id" integer NOT NULL,
 	"created_at" date DEFAULT now(),
-	"updated_at" date DEFAULT now(),
-	"deleted_at" date
+	CONSTRAINT "test" PRIMARY KEY("user1_id","user2_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
@@ -25,3 +23,5 @@ CREATE TABLE IF NOT EXISTS "users" (
 	CONSTRAINT "users_username_unique" UNIQUE("username"),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "friends_user2_id_user1_id_index" ON "friends" USING btree ("user2_id","user1_id");
