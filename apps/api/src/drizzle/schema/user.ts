@@ -9,7 +9,7 @@ export const user = pgTable("users", {
     dob: date("dob").notNull(), // date of birth
     profile_image_url: varchar("profile_image_url", { length: 255 }),
     cover_image_url: varchar("cover_image_url", { length: 255 }),
-    refresh_token: varchar("refresh_token", { length: 128 }),
+    session: varchar("refresh_token", { length: 128 }),
     google_id: varchar("google_id", { length: 128 }),
     github_id: varchar("github_id", { length: 128 }),
     created_at: date("created_at").defaultNow(),
