@@ -1,6 +1,9 @@
+import { Sidebar } from "@/components/layouts/Sidebar";
+
 export const AppRoot = () => {
     return (
         <>
+            <Sidebar />
             <div className="flex h-screen flex-col items-center justify-center">
                 <img
                     src="/disworse-logo.jpg"
