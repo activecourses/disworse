@@ -29,8 +29,7 @@ jobs:
         working-directory: ./apps/api
         run: mv .env.sample .env
       - name: Starting Docker DB Container
-        working-directory: ./apps/api
-        run: pnpm run docker
+        run: pnpm run compose:up
       - name: Running API Tests
         working-directory: ./apps/api
         run: pnpm run test

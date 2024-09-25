@@ -10,7 +10,9 @@
         "lint:fix": "biome check . --write",
         "lint:fix:unsafe": "biome check . --write --unsafe",
         "prepare": "husky",
-        "commitlint": "commitlint --edit"
+        "commitlint": "commitlint --edit",
+        "compose:up": "docker compose up -d --build",
+        "compose:down": "docker compose down -v"
     },
     "lint-staged": {
         "**/*": ["biome check . --write"]

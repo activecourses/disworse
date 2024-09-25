@@ -20,8 +20,7 @@
         "db:push": "npx drizzle-kit push --config=./src/drizzle/drizzle.config.ts",
         "db:generate": "npx drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
         "db:migrate": "npx drizzle-kit migrate --config=./src/drizzle/drizzle.config.ts",
-        "db:studio": "npx drizzle-kit studio --config=./src/drizzle/drizzle.config.ts",
-        "docker": "docker compose up -d"
+        "db:studio": "npx drizzle-kit studio --config=./src/drizzle/drizzle.config.ts"
     },
     "dependencies": {
         "@apollo/server": "^4.11.0",
