@@ -1,19 +1,42 @@
-import { date, index, integer, pgTable, primaryKey } from "drizzle-orm/pg-core";
+import { ne, relations, sql } from "drizzle-orm";
+import {
+    check,
+    date,
+    index,
+    integer,
+    pgTable,
+    serial,
+} from "drizzle-orm/pg-core";
+import { users } from "./user";
 
-export const friend = pgTable(
+export const friends = pgTable(
     "friends",
     {
-        user1_id: integer("user1_id").notNull(),
-        user2_id: integer("user2_id").notNull(),
-        created_at: date("created_at").defaultNow(),
+        id: serial("id").primaryKey(),
+        created_at: date("created_at").notNull().defaultNow(),
+
+        user1_id: integer("user1_id")
+            .references(() => users.id)
+            .notNull(),
+        user2_id: integer("user2_id")
+            .references(() => users.id)
+            .notNull(),
     },
-    (table) => {
-        return {
-            pk: primaryKey({
-                name: "test",
-                columns: [table.user1_id, table.user2_id],
-            }),
-            user2Idx: index().on(table.user2_id, table.user1_id),
-        };
-    },
+    ({ user1_id, user2_id }) => ({
+        user2Idx: index().on(user2_id, user1_id),
+        // not_eq: check("not_eq", ne(user1_id, user2_id)), // WARN(drizzle)!: not implemented in drizzle yet, needs a work around
+    }),
 );
+
+export const friendRelation = relations(friends, ({ one }) => ({
+    user1: one(users, {
+        fields: [friends.user1_id],
+        references: [users.id],
+        relationName: "user1",
+    }),
+    user2: one(users, {
+        fields: [friends.user2_id],
+        references: [users.id],
+        relationName: "user2",
+    }),
+}));
