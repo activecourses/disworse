@@ -27,7 +27,13 @@
                 "schema": "../api/schema.graphql",
                 "tadaOutputLocation": "./src/graphql-env.d.ts"
             }
-        ]
+        ],
+
+        /* Paths */
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
     "include": ["src"]
 }
