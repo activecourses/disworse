@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 import { graphqlRequest } from "@/lib/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { graphql } from "gql.tada";
@@ -16,35 +16,28 @@ export const GraphQLTestRoute = () => {
             await new Promise((resolve) => {
                 setTimeout(() => {
                     resolve(graphqlRequest(query));
-                }, 1000);
+                }, 2000);
             }),
     });
-
-    if (isLoading) {
-        return (
-            <div className="flex h-screen items-center justify-center">
-                <Spinner size="xl" />
-            </div>
-        );
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
 
     return (
         <div className="flex h-screen flex-col items-center justify-center">
             <img src="/disworse-logo.jpg" alt="logo" className="h-24 w-24" />
-            <h1 className="mt-4 font-bold text-4xl text-slate-900">
+            <h1 className="mt-4 font-bold text-4xl text-foreground">
                 App GraphQL Test
             </h1>
-            <div className="mt-4 text-center text-gray-600 text-lg">
-                <h2 className="text-center font-bold text-2xl text-blue-600">
-                    GraphQL Response:
-                </h2>
-                <pre className="mt-4 overflow-x-auto rounded-lg bg-gray-100 p-4 text-center text-gray-600 text-lg">
-                    {JSON.stringify(data, null, 4)}
-                </pre>
+            <div className="mt-4 text-center text-lg">
+                {isLoading ? (
+                    <Skeleton className="h-32 w-[400px] p-4" />
+                ) : error ? (
+                    <div>Error: {error.message}</div>
+                ) : (
+                    <div className="flex h-32 w-[400px] items-center justify-center overflow-x-auto rounded-lg bg-secondary p-4 text-foreground text-lg">
+                        <pre className="text-left">
+                            <code>{JSON.stringify(data, null, 4)}</code>
+                        </pre>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ export const LandingRoute = () => {
                     alt="logo"
                     className="h-24 w-24"
                 />
-                <h1 className="mt-4 font-bold text-4xl text-slate-900">
+                <h1 className="mt-4 font-bold text-4xl text-foreground">
                     App Landing
                 </h1>
             </div>

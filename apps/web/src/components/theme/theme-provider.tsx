@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
-    // biome-ignore lint/correctness/noUndeclaredVariables: <explanation>
     children: React.ReactNode;
     defaultTheme?: Theme;
     storageKey?: string;
