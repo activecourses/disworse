@@ -14,7 +14,8 @@
             "pnpm-lock.yaml",
             "schema.graphql",
             "graphql-env.d.ts",
-            "./apps/api/coverage"
+            "./apps/api/coverage",
+            "routeTree.gen.ts"
         ]
     },
     "formatter": {

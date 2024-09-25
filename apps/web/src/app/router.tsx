@@ -1,41 +1,38 @@
-import { AppRoot } from "@/app/routes/app/root";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
-export const createAppRouter = (_queryClient: QueryClient) =>
-    createBrowserRouter([
-        {
-            path: "/",
-            lazy: async () => {
-                const { LandingRoute } = await import("./routes/landing");
-                return { Component: LandingRoute };
-            },
-        },
-        {
-            path: "/graphql-test",
-            lazy: async () => {
-                const { GraphQLTestRoute } = await import(
-                    "./routes/graphql-test"
-                );
-                return { Component: GraphQLTestRoute };
-            },
-        },
-        {
-            path: "/app",
-            element: <AppRoot />,
-        },
-        {
-            path: "*",
-            lazy: async () => {
-                const { NotFoundRoute } = await import("./routes/not-found");
-                return { Component: NotFoundRoute };
-            },
-        },
-    ]);
+// Import the generated route tree
+import { routeTree } from "@/routeTree.gen";
+
+// Create a new router instance
+const router = createRouter({
+    routeTree,
+    defaultNotFoundComponent: () => (
+        <div className="flex h-screen flex-col items-center justify-center">
+            <img src="/disworse-logo.jpg" alt="logo" className="h-24 w-24" />
+            <h1 className="mt-4 font-bold text-4xl text-foreground">
+                404 Not Found
+            </h1>
+            <p className="mt-4 text-center text-lg text-secondary-foreground">
+                Sorry, the page you are looking for does not exist.
+            </p>
+            <Link
+                className="mt-4 text-center text-lg text-muted-foreground hover:text-accent-foreground"
+                to="/"
+                replace
+            >
+                Go to Landing
+            </Link>
+        </div>
+    ),
+});
+
+// Register the router instance for type safety
+declare module "@tanstack/react-router" {
+    interface Register {
+        router: typeof router;
+    }
+}
 
 export const AppRouter = () => {
-    const queryClient = useQueryClient();
-    const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
     return <RouterProvider router={router} />;
 };

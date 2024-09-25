@@ -1,6 +1,10 @@
-import { Link } from "@/components/ui/link";
+import { Link, createFileRoute } from "@tanstack/react-router";
 
-export const NotFoundRoute = () => {
+export const Route = createFileRoute("/not-found")({
+    component: NotFoundRoute,
+});
+
+export function NotFoundRoute() {
     return (
         <>
             <div className="flex h-screen flex-col items-center justify-center">
@@ -25,4 +29,4 @@ export const NotFoundRoute = () => {
             </div>
         </>
     );
-};
+}

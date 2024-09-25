@@ -1,4 +1,10 @@
-export const AppRoot = () => {
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+export const Route = createLazyFileRoute("/app/")({
+    component: AppRoot,
+});
+
+function AppRoot() {
     return (
         <>
             <div className="flex h-screen flex-col items-center justify-center">
@@ -13,4 +19,4 @@ export const AppRoot = () => {
             </div>
         </>
     );
-};
+}

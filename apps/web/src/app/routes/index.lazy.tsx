@@ -1,4 +1,10 @@
-export const LandingRoute = () => {
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+export const Route = createLazyFileRoute("/")({
+    component: LandingRoute,
+});
+
+function LandingRoute() {
     return (
         <>
             <div className="flex h-screen flex-col items-center justify-center">
@@ -13,4 +19,4 @@ export const LandingRoute = () => {
             </div>
         </>
     );
-};
+}
