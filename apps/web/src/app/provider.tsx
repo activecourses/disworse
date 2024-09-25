@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { env } from "@/config/env";
 import { queryConfig } from "@/lib/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -19,7 +20,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                {import.meta.env.DEV && <ReactQueryDevtools />}
+                {env.DEV && <ReactQueryDevtools />}
                 {children}
             </ThemeProvider>
         </QueryClientProvider>

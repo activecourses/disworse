@@ -4,6 +4,7 @@ const createEnv = () => {
     const EnvSchema = z.object({
         API_URL: z.string(),
         APP_URL: z.string().optional().default("http://localhost:3000"),
+        DEV: z.string().optional().default("false"),
     });
 
     const envVars = Object.entries(import.meta.env).reduce<
