@@ -55,5 +55,19 @@ export default {
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [
+        require("tailwindcss-animate"),
+        function ({ addUtilities }) {
+            const newUtilities = {
+                ".scrollbar-none": {
+                    scrollbarWidth: "none",
+                    "-ms-overflow-style": "none",
+                },
+                ".scrollbar-hide::-webkit-scrollbar": {
+                    display: "none",
+                },
+            };
+            addUtilities(newUtilities, ["responsive"]);
+        },
+    ],
 };

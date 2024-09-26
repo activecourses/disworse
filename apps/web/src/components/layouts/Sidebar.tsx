@@ -1,8 +1,6 @@
-import "./Sidebar.module.css";
-
 export const Sidebar = () => {
     return (
-        <nav className="fixed h-full w-20 overflow-y-auto bg-gradient-to-t from-slate-800 to-slate-950">
+        <nav className="scrollbar-none scrollbar-hide fixed h-full w-20 overflow-y-auto bg-gradient-to-t from-slate-800 to-slate-950">
             {/* Dashboard */}
             <div className="flex items-center justify-center border-gray-600 border-b py-2">
                 <img
