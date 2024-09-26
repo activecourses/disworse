@@ -7,7 +7,14 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": [".turbo", "node_modules", "dist", "package-lock.json"]
+        "ignore": [
+            ".turbo",
+            "node_modules",
+            "dist",
+            "pnpm-lock.yaml",
+            "schema.graphql",
+            "graphql-env.d.ts"
+        ]
     },
     "formatter": {
         "enabled": true,
@@ -18,7 +25,10 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": false
+            "recommended": false,
+            "nursery": {
+                "useSortedClasses": "error"
+            }
         }
     },
     "organizeImports": {
