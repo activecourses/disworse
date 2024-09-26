@@ -1,10 +1,25 @@
-import { z } from "nestjs-zod/z";
+import {
+    ValidationArguments,
+    ValidationOptions,
+    registerDecorator,
+} from "class-validator";
 
-export const Username = z
-    .string()
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username is too long")
-    .regex(
-        /^[a-zA-Z0-9]{3,20}$/,
-        "Username can only contain letters and numbers",
-    );
+export function IsGoodUsername(validationOptions?: ValidationOptions) {
+    return function (object: Object, propertyName: string) {
+        registerDecorator({
+            name: "is good username",
+            target: object.constructor,
+            propertyName: propertyName,
+            options: validationOptions,
+            validator: {
+                validate(value: string): boolean {
+                    const regex: RegExp = /^[a-zA-Z0-9]{1,20}$/;
+                    return regex.test(value);
+                },
+                defaultMessage(_args: ValidationArguments): string {
+                    return `username must be between 1 and 20 alphanumeric characters`;
+                },
+            },
+        });
+    };
+}
