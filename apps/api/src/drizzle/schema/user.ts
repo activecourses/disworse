@@ -3,6 +3,7 @@ import { date, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { friends } from "./friend";
 import { friendRequests } from "./friend-requests";
 import { messages } from "./messages";
+import { servers } from "./server";
 import { serverUsers } from "./server-user";
 import { userChats } from "./user-chats";
 
@@ -23,10 +24,11 @@ export const users = pgTable("users", {
     deleted_at: date("deleted_at"),
 });
 
-export const usersRelation = relations(users, ({ many }) => ({
+export const usersRelation = relations(users, ({ one, many }) => ({
     friends: many(friends),
     server_users: many(serverUsers),
     friend_requests: many(friendRequests),
     chats: many(userChats),
     messages: many(messages),
+    server_owner: one(servers),
 }));
