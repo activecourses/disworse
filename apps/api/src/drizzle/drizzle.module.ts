@@ -6,7 +6,7 @@ import * as schema from "./schema";
 @Module({
     imports: [
         DrizzlePGModule.registerAsync({
-            useFactory: async (configService: ConfigService) => ({
+            useFactory: (configService: ConfigService) => ({
                 pg: {
                     connection: "pool",
                     config: {

@@ -9,7 +9,7 @@
         "prepare": "husky",
         "commitlint": "commitlint --edit",
         "compose:up": "docker compose up -d --build",
-        "compose:down": "docker compose down"
+        "compose:down": "docker compose down -v"
     },
     "lint-staged": {
         "**/*": ["biome check . --write"]
