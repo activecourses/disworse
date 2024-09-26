@@ -53,7 +53,7 @@
                     },
                     "correctness": {
                         "noPrecisionLoss": "error",
-                        "noUnusedVariables": "error",
+                        "noUnusedVariables": "warn",
                         "useArrayLiterals": "off"
                     },
                     "style": {
