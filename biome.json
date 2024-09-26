@@ -46,7 +46,7 @@
             "linter": {
                 "rules": {
                     "complexity": {
-                        "noBannedTypes": "error",
+                        "noBannedTypes": "warn",
                         "noUselessThisAlias": "error",
                         "noUselessTypeConstraint": "error",
                         "useArrowFunction": "off"
