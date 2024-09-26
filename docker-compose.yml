@@ -5,7 +5,7 @@ services:
         ports:
             - 5432:5432
         env_file:
-            - '.env.backend'
+            - ./apps/api/.env.backend
         # environment:
         #     - POSTGRES_DB
         #     - POSTGRES_USER
