@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/layouts/Sidebar";
+import { Sidebar } from "@/components/layouts/side-bar";
 
 export const AppRoot = () => {
     return (
