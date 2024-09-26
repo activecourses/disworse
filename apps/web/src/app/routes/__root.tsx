@@ -1,6 +1,15 @@
 import { env } from "@/config/env";
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import * as React from "react";
+
+const TanStackRouterDevtools = React.lazy(() =>
+    // Lazy load in development
+    import("@tanstack/router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+        // For Embedded Mode
+        // default: res.TanStackRouterDevtoolsPanel
+    })),
+);
 
 export const Route = createRootRoute({
     component: () => (
@@ -19,7 +28,11 @@ export const Route = createRootRoute({
                 </div>
             )}
             <Outlet />
-            {env.DEV && <TanStackRouterDevtools />}
+            {env.DEV && (
+                <React.Suspense fallback={null}>
+                    <TanStackRouterDevtools />
+                </React.Suspense>
+            )}
         </>
     ),
 });
