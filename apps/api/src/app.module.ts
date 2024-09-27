@@ -4,9 +4,9 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_PIPE } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
-import { ZodValidationPipe } from "nestjs-zod";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
+import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
@@ -21,14 +21,8 @@ import { AuthModule } from "./modules/auth/auth.module";
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
         }),
+        DrizzleModule,
     ],
-    providers: [
-        AppService,
-        AppResolver,
-        {
-            provide: APP_PIPE,
-            useClass: ZodValidationPipe,
-        },
-    ],
+    providers: [AppService, AppResolver],
 })
 export class AppModule {}
