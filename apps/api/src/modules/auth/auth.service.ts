@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { hash } from "src/utils/argon2";
+import { hash } from "../../utils/argon2";
 import { SignupDto } from "./dto/signup.dto";
 
 @Injectable()
