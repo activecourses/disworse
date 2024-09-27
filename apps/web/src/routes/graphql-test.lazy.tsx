@@ -1,7 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { graphqlRequest } from "@/lib/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { graphql } from "gql.tada";
+
+export const Route = createLazyFileRoute("/graphql-test")({
+    component: GraphQLTestRoute,
+});
 
 const query = graphql(`
     query hello {
@@ -9,7 +14,7 @@ const query = graphql(`
     }
 `);
 
-export const GraphQLTestRoute = () => {
+function GraphQLTestRoute() {
     const { data, error, isLoading } = useQuery({
         queryKey: ["hello"],
         queryFn: async () =>
@@ -41,4 +46,4 @@ export const GraphQLTestRoute = () => {
             </div>
         </div>
     );
-};
+}
