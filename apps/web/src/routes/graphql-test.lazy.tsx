@@ -1,7 +1,13 @@
+import { Logo } from "@/components/ui/logo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { graphqlRequest } from "@/lib/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { graphql } from "gql.tada";
+
+export const Route = createLazyFileRoute("/graphql-test")({
+    component: GraphQLTestRoute,
+});
 
 const query = graphql(`
     query hello {
@@ -9,7 +15,7 @@ const query = graphql(`
     }
 `);
 
-export const GraphQLTestRoute = () => {
+function GraphQLTestRoute() {
     const { data, error, isLoading } = useQuery({
         queryKey: ["hello"],
         queryFn: async () =>
@@ -22,7 +28,7 @@ export const GraphQLTestRoute = () => {
 
     return (
         <div className="flex h-screen flex-col items-center justify-center">
-            <img src="/disworse-logo.jpg" alt="logo" className="h-24 w-24" />
+            <Logo alt="Logo" className="h-24 w-24" />
             <h1 className="mt-4 font-bold text-4xl text-foreground">
                 App GraphQL Test
             </h1>
@@ -41,4 +47,4 @@ export const GraphQLTestRoute = () => {
             </div>
         </div>
     );
-};
+}
