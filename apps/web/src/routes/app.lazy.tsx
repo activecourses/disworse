@@ -1,3 +1,5 @@
+import { Sidebar } from "@/components/layouts/sidebar";
+
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/app")({
@@ -7,6 +9,7 @@ export const Route = createLazyFileRoute("/app")({
 function AppRoot() {
     return (
         <>
+            <Sidebar />
             <div className="flex h-screen flex-col items-center justify-center">
                 <img
                     src="/disworse-logo.jpg"
