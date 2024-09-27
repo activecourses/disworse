@@ -2,17 +2,17 @@ import { Logo } from "@/components/ui/logo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { graphqlRequest } from "@/lib/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { graphql } from "gql.tada";
 
-export const Route = createLazyFileRoute("/graphql-test")({
+export const Route = createFileRoute("/graphql-test")({
     component: GraphQLTestRoute,
 });
 
 const query = graphql(`
-    query hello {
-        hello
-    }
+  query hello {
+    hello
+  }
 `);
 
 function GraphQLTestRoute() {
