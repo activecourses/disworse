@@ -1,3 +1,4 @@
+import { MeRoot } from "@/app/routes/app/me/me-root";
 import { AppRoot } from "@/app/routes/app/root";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -22,8 +23,18 @@ export const createAppRouter = (_queryClient: QueryClient) =>
             },
         },
         {
-            path: "/app",
+            path: "/app/channels",
             element: <AppRoot />,
+            children: [
+                {
+                    path: "me",
+                    element: <MeRoot />,
+                    // children: [
+                    //     { index: true, element: <MeIndex /> },
+                    //     { path: ":id", element: <PrivateChat /> },
+                    // ],
+                },
+            ],
         },
         {
             path: "*",
