@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/components/theme/theme-provider";
 import { env } from "@/config/env";
 import { queryConfig } from "@/lib/react-query";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import * as React from "react";

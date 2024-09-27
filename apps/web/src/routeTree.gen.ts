@@ -12,23 +12,26 @@ import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './app/routes/__root'
-import { Route as NotFoundImport } from './app/routes/not-found'
+import { Route as rootRoute } from './routes/__root'
+import { Route as NotFoundImport } from './routes/not-found'
 
 // Create Virtual Routes
 
 const GraphqlTestLazyImport = createFileRoute('/graphql-test')()
+const AppLazyImport = createFileRoute('/app')()
 const IndexLazyImport = createFileRoute('/')()
-const AppIndexLazyImport = createFileRoute('/app/')()
 
 // Create/Update Routes
 
 const GraphqlTestLazyRoute = GraphqlTestLazyImport.update({
   path: '/graphql-test',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./app/routes/graphql-test.lazy').then((d) => d.Route),
-)
+} as any).lazy(() => import('./routes/graphql-test.lazy').then((d) => d.Route))
+
+const AppLazyRoute = AppLazyImport.update({
+  path: '/app',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/app.lazy').then((d) => d.Route))
 
 const NotFoundRoute = NotFoundImport.update({
   path: '/not-found',
@@ -38,12 +41,7 @@ const NotFoundRoute = NotFoundImport.update({
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./app/routes/index.lazy').then((d) => d.Route))
-
-const AppIndexLazyRoute = AppIndexLazyImport.update({
-  path: '/app/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./app/routes/app/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -63,18 +61,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/graphql-test': {
       id: '/graphql-test'
       path: '/graphql-test'
       fullPath: '/graphql-test'
       preLoaderRoute: typeof GraphqlTestLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/app/': {
-      id: '/app/'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -85,46 +83,46 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/not-found': typeof NotFoundRoute
+  '/app': typeof AppLazyRoute
   '/graphql-test': typeof GraphqlTestLazyRoute
-  '/app': typeof AppIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/not-found': typeof NotFoundRoute
+  '/app': typeof AppLazyRoute
   '/graphql-test': typeof GraphqlTestLazyRoute
-  '/app': typeof AppIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/not-found': typeof NotFoundRoute
+  '/app': typeof AppLazyRoute
   '/graphql-test': typeof GraphqlTestLazyRoute
-  '/app/': typeof AppIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/not-found' | '/graphql-test' | '/app'
+  fullPaths: '/' | '/not-found' | '/app' | '/graphql-test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/not-found' | '/graphql-test' | '/app'
-  id: '__root__' | '/' | '/not-found' | '/graphql-test' | '/app/'
+  to: '/' | '/not-found' | '/app' | '/graphql-test'
+  id: '__root__' | '/' | '/not-found' | '/app' | '/graphql-test'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   NotFoundRoute: typeof NotFoundRoute
+  AppLazyRoute: typeof AppLazyRoute
   GraphqlTestLazyRoute: typeof GraphqlTestLazyRoute
-  AppIndexLazyRoute: typeof AppIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   NotFoundRoute: NotFoundRoute,
+  AppLazyRoute: AppLazyRoute,
   GraphqlTestLazyRoute: GraphqlTestLazyRoute,
-  AppIndexLazyRoute: AppIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -141,8 +139,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/not-found",
-        "/graphql-test",
-        "/app/"
+        "/app",
+        "/graphql-test"
       ]
     },
     "/": {
@@ -151,11 +149,11 @@ export const routeTree = rootRoute
     "/not-found": {
       "filePath": "not-found.tsx"
     },
+    "/app": {
+      "filePath": "app.lazy.tsx"
+    },
     "/graphql-test": {
       "filePath": "graphql-test.lazy.tsx"
-    },
-    "/app/": {
-      "filePath": "app/index.lazy.tsx"
     }
   }
 }
