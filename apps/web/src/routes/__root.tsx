@@ -14,8 +14,9 @@ const TanStackRouterDevtools = React.lazy(() =>
 export const Route = createRootRoute({
     component: () => (
         <>
+            <Outlet />
             {env.DEV && (
-                <div className="fixed bottom-12 left-2 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle text-secondary-">
+                <div className="fixed bottom-12 left-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
                     <Link to="/" className="[&.active]:font-bold">
                         Landing
                     </Link>
@@ -27,7 +28,6 @@ export const Route = createRootRoute({
                     </Link>
                 </div>
             )}
-            <Outlet />
             {env.DEV && (
                 <React.Suspense fallback={null}>
                     <TanStackRouterDevtools />
