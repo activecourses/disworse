@@ -1,6 +1,4 @@
-import { DrizzlePGModule } from "@knaadh/nestjs-drizzle-pg";
 import { Global, Module } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { Pool } from "pg";
 import { DatabaseOptions } from "./database-options";
 import {
