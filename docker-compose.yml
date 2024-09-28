@@ -21,9 +21,9 @@ services:
     #         POSTGRES_USER: postgres
     #         POSTGRES_PASSWORD: postgres
 
-    # redis:
-    #     container_name: cache
-    #     image: redis
-    #     restart: always
-    #     ports:
-    #     - 6379:6379
+    redis:
+        container_name: cache
+        image: redis
+        restart: always
+        ports:
+        - 6379:6379
