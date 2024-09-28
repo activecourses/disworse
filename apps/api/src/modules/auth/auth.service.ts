@@ -49,7 +49,7 @@ export class AuthService {
             throw new UnauthorizedException("AUTH: Invalid credentials");
         }
 
-        const isMatch = await verify(user.password, password);
+        const isMatch = await verify(password, user.password);
 
         if (!isMatch) {
             this.logger.error("Auth - Validate: Invalid credentials");
