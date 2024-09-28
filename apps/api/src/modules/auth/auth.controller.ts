@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { Request } from "express";
+import { Public } from "src/common/custom-decorators/public-endpoint";
 import { LocalAuthGuard } from "src/common/guards/local-auth.guard";
 import { SerializedUser } from "src/common/serialized-types/user";
 import { AuthenticatedGuard } from "../../common/guards/auth.guard";
@@ -10,6 +11,7 @@ import { SignupDto } from "./dto/signup.dto";
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
+    @Public()
     @Post("signup")
     async signup(@Body() signupDto: SignupDto) {
         const user = await this.authService.signup(signupDto);
@@ -17,6 +19,7 @@ export class AuthController {
         return new SerializedUser(user);
     }
 
+    @Public()
     @UseGuards(LocalAuthGuard)
     @Post("login")
     async login(@Req() req: Request) {
