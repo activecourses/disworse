@@ -6,7 +6,7 @@ import { SignupDto } from "./dto/signup.dto";
 export class AuthService {
     private readonly logger = new Logger(AuthService.name);
 
-    constructor() {}
+    constructor() { }
 
     async signup(signupDto: SignupDto) {
         const user = signupDto; // TODO: fake signup till we have user model
@@ -25,5 +25,14 @@ export class AuthService {
         );
         return user;
     }
+    
+    googleLogin(req: any) {
+        if (!req.user) {
+            return 'No user from google'
+        }
+        return {
+            message: 'User information from Google',
+            user: req.user,
+        }
+    }
 }
-1;
