@@ -9,6 +9,7 @@ import { eq } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 import * as schema from "src/drizzle/schema";
 import { hash, verify } from "src/utils/argon2";
+import { LoginDto } from "./dto/login.dto";
 import { SignupDto } from "./dto/signup.dto";
 
 @Injectable()
@@ -39,9 +40,9 @@ export class AuthService {
         return user;
     }
 
-    async validateUser(email: string, password: string) {
+    async validateUser(loginDto: LoginDto) {
         const user = await this.db.query.users.findFirst({
-            where: eq(schema.users.email, email),
+            where: eq(schema.users.email, loginDto.email),
         });
 
         if (!user) {
@@ -49,7 +50,7 @@ export class AuthService {
             throw new UnauthorizedException("AUTH: Invalid credentials");
         }
 
-        const isMatch = await verify(password, user.password);
+        const isMatch = await verify(loginDto.password, user.password);
 
         if (!isMatch) {
             this.logger.error("Auth - Validate: Invalid credentials");
@@ -57,7 +58,7 @@ export class AuthService {
         }
 
         this.logger.log(
-            `Auth - Validate: user with username '${user}' successfully validated`,
+            `Auth - Validate: user with username '${user.username}' successfully validated`,
         );
         return user;
     }
