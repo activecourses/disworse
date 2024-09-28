@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
 import { Request } from "express";
 import { Public } from "src/common/custom-decorators/public-endpoint";
 import { LocalAuthGuard } from "src/common/guards/local-auth.guard";
 import { SerializedUser } from "src/common/serialized-types/user";
-import { AuthenticatedGuard } from "../../common/guards/auth.guard";
 import { AuthService } from "./auth.service";
 import { SignupDto } from "./dto/signup.dto";
 

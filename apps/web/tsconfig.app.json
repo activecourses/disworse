@@ -18,7 +18,22 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+
+        /* GraphQL */
+        "plugins": [
+            {
+                "name": "gql.tada/ts-plugin",
+                "schema": "../api/schema.graphql",
+                "tadaOutputLocation": "./src/graphql-env.d.ts"
+            }
+        ],
+
+        /* Paths */
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
     "include": ["src"]
 }

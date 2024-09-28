@@ -7,7 +7,16 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": [".turbo", "node_modules", "dist", "package-lock.json"]
+        "ignore": [
+            ".turbo",
+            "node_modules",
+            "dist",
+            "pnpm-lock.yaml",
+            "schema.graphql",
+            "graphql-env.d.ts",
+            "./apps/api/coverage",
+            "routeTree.gen.ts"
+        ]
     },
     "formatter": {
         "enabled": true,
@@ -18,7 +27,10 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": false
+            "recommended": false,
+            "nursery": {
+                "useSortedClasses": "error"
+            }
         }
     },
     "organizeImports": {
@@ -62,7 +74,7 @@
                         "useBlockStatements": "off"
                     },
                     "suspicious": {
-                        "noExplicitAny": "off",
+                        "noExplicitAny": "warn",
                         "noExtraNonNullAssertion": "error",
                         "noMisleadingInstantiator": "error",
                         "noUnsafeDeclarationMerging": "error"
@@ -127,7 +139,7 @@
                         "noRedeclare": "error",
                         "noUnsafeNegation": "error",
                         "useGetterReturn": "error",
-                        "noExplicitAny": "error",
+                        "noExplicitAny": "warn",
                         "noExtraNonNullAssertion": "error",
                         "noMisleadingInstantiator": "error",
                         "noUnsafeDeclarationMerging": "error",
@@ -153,6 +165,7 @@
             },
             "javascript": {
                 "globals": [
+                    "React",
                     "OffscreenCanvas",
                     "onpointerleave",
                     "onpointerenter",

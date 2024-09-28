@@ -4,7 +4,6 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
-import { AppController } from "./app.controller";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
@@ -19,11 +18,13 @@ import { AuthModule } from "./modules/auth/auth.module";
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
-            autoSchemaFile: join(process.cwd(), "src/schema.gql"),
+            playground: true,
+            sortSchema: true,
+            autoSchemaFile: join(process.cwd(), "schema.graphql"),
         }),
         DrizzleModule,
     ],
-    controllers: [AppController],
+    controllers: [],
     providers: [
         AppService,
         AppResolver,

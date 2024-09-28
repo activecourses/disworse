@@ -90,6 +90,7 @@ web_modules/
 .env.production.local
 .env.local
 .env.backend
+.env.backend
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -144,3 +145,7 @@ dist
 
 # db
 migrations/
+
+# Frontend
+apps/web/tsconfig.app.tsbuildinfo
+apps/web/tsconfig.node.tsbuildinfo

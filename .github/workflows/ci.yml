@@ -1,0 +1,40 @@
+name: Backend Continuous Integration Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+      - name: Installing Dependencies
+        run: pnpm install
+      - name: Typecheck
+        run: pnpm run typecheck
+      - name: Running lint & format
+        run: pnpm run lint
+      - name: Renaming .env.sample to .env.test
+        working-directory: ./apps/api
+        run: mv .env.sample .env
+      - name: Starting Docker DB Container
+        run: pnpm run compose:up
+      - name: Running API Tests
+        working-directory: ./apps/api
+        run: pnpm run test
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          directory: ./apps/api/coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
