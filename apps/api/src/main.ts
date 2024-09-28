@@ -1,7 +1,9 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import RedisStore from "connect-redis";
 import * as session from "express-session";
 import * as passport from "passport";
+import { createClient } from "redis";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
@@ -14,11 +16,22 @@ async function bootstrap() {
         }),
     );
 
+    const redisClient = await createClient({
+        url: String(process.env.REDIS_URL),
+    }).connect();
+
     app.use(
         session({
-            secret: process.env.SESSION_SECRET || "sTronPaSsWoRd",
+            secret: String(process.env.SESSION_SECRET),
             resave: false,
             saveUninitialized: false,
+            cookie: {
+                maxAge: Number(process.env.COOKIE_MAX_AGE),
+                httpOnly: true,
+            },
+            store: new RedisStore({
+                client: redisClient,
+            }),
         }),
     );
 
