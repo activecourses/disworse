@@ -35,9 +35,6 @@ importers:
       '@apollo/server':
         specifier: ^4.11.0
         version: 4.11.0(graphql@16.9.0)
-      '@knaadh/nestjs-drizzle-pg':
-        specifier: ^1.0.0
-        version: 1.0.0(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(drizzle-orm@0.33.0(@types/pg@8.11.10)(@types/react@18.3.8)(pg@8.13.0)(postgres@3.4.4)(react@18.3.1))(pg@8.13.0)
       '@nestjs/apollo':
         specifier: ^12.2.0
         version: 12.2.0(@apollo/server@4.11.0(graphql@16.9.0))(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.3(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/graphql@12.2.0(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.3(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.3)(reflect-metadata@0.2.2)(rxjs@7.8.1))(graphql@16.9.0)(reflect-metadata@0.2.2))(graphql@16.9.0)
@@ -71,9 +68,6 @@ importers:
       pg:
         specifier: ^8.13.0
         version: 8.13.0
-      postgres:
-        specifier: ^3.4.4
-        version: 3.4.4
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -1375,13 +1369,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
-
-  '@knaadh/nestjs-drizzle-pg@1.0.0':
-    resolution: {integrity: sha512-21Ywzn/5y0QQz3cx1Nc2ZKfzW7LAjWCjATymkT148YECc+BIwpwvWvpejnjPOjFcyM0XfNT2axvRb0913GVfWg==}
-    peerDependencies:
-      '@nestjs/common': '>=9.0.0'
-      drizzle-orm: '>=0.28.6'
-      pg: '>=8'
 
   '@ljharb/through@2.3.13':
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
@@ -5842,13 +5829,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@knaadh/nestjs-drizzle-pg@1.0.0(@nestjs/common@10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1))(drizzle-orm@0.33.0(@types/pg@8.11.10)(@types/react@18.3.8)(pg@8.13.0)(postgres@3.4.4)(react@18.3.1))(pg@8.13.0)':
-    dependencies:
-      '@nestjs/common': 10.4.3(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      drizzle-orm: 0.33.0(@types/pg@8.11.10)(@types/react@18.3.8)(pg@8.13.0)(postgres@3.4.4)(react@18.3.1)
-      pg: 8.13.0
-      tslib: 2.7.0
-
   '@ljharb/through@2.3.13':
     dependencies:
       call-bind: 1.0.7
@@ -8536,7 +8516,8 @@ snapshots:
 
   postgres-range@1.1.4: {}
 
-  postgres@3.4.4: {}
+  postgres@3.4.4:
+    optional: true
 
   prettier@3.3.3: {}
 
