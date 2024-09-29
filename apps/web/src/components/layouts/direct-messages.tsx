@@ -1,31 +1,38 @@
+import { useResponsive } from "@/providers/responsive-provider";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "../ui/logo";
 import { OfflineStatus } from "../ui/status/offline";
 import { OnlineStatus } from "../ui/status/online";
 
 export const DirectMessages = () => {
+    const { isNavsOpen, closeNavs } = useResponsive();
     return (
-        <nav className="flex h-screen w-full flex-col bg-zinc-800 pl-20 text-white md:w-[320px]">
-            {/* Search bar */}
-            <div className="flex h-12 items-center justify-center border-black border-b py-3 ">
-                <input
-                    className="w-5/6 rounded-md border-2 border-zinc-700 border-solid bg-transparent px-4 py-1 text-white text-xs outline-none transition-colors duration-100 focus:border-black"
-                    name="text"
-                    placeholder="Find or start a conversation"
-                    type="text"
-                />
-            </div>
-            {/* Online Friends */}
-            <div className="scrollbar-none scrollbar-hide overflow-y-auto px-2">
-                <Link
-                    to="/app/channels/me"
-                    className="mt-2 mb-2 flex h-14 cursor-pointer items-center gap-2 rounded-md px-2 py-2 font-semibold opacity-80 hover:bg-zinc-900"
-                >
-                    <Logo className="h-10 w-10 rounded-full" alt="Friend" />
-                    Friends
-                </Link>
-                {/* Private Chats */}
-                <div className="">
+        isNavsOpen && (
+            <nav
+                className={`flex w-full flex-col bg-zinc-800 text-white lg:w-80 ${window.innerWidth < 1024 ? "slide-in-from-right animate-in duration-700" : ""}`}
+            >
+                {/* Search bar */}
+                <div className="flex h-12 items-center justify-center border-black border-b py-3">
+                    <input
+                        className="w-5/6 rounded-md border-2 border-zinc-700 border-solid bg-transparent px-4 py-1 text-white text-xs outline-none transition-colors duration-100 focus:border-black"
+                        name="text"
+                        placeholder="Find or start a conversation"
+                        type="text"
+                    />
+                </div>
+                {/* Online Friends */}
+                <div className="scrollbar-none scrollbar-hide overflow-y-auto px-2">
+                    <Link
+                        to="/app/channels/me"
+                        className="mt-2 mb-2 flex h-14 w-full cursor-pointer items-center gap-2 rounded-md px-2 py-2 font-semibold opacity-80 hover:bg-zinc-900"
+                        onClick={() => {
+                            if (window.innerWidth < 1024) closeNavs();
+                        }}
+                    >
+                        <Logo className="h-10 w-10 rounded-full" alt="Friend" />
+                        Friends
+                    </Link>
+                    {/* Private Chats */}
                     <div className="mb-2 flex items-center justify-between px-4">
                         <h3 className="font-bold text-xs uppercase">
                             Direct Messages
@@ -59,7 +66,7 @@ export const DirectMessages = () => {
                         ))}
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        )
     );
 };

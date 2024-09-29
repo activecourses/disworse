@@ -8,9 +8,9 @@ export const Route = createFileRoute("/app")({
 
 function AppRoot() {
     return (
-        <>
+        <main className="flex h-screen">
             <Sidebar />
             <Outlet />
-        </>
+        </main>
     );
 }
