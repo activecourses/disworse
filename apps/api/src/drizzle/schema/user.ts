@@ -25,9 +25,14 @@ export const users = pgTable("users", {
 });
 
 export const usersRelation = relations(users, ({ one, many }) => ({
-    friends: many(friends),
+    // TODO: is this correct?
+    friend_of: many(friends, { relationName: "user1" }),
+    friend_by: many(friends, { relationName: "user2" }),
     server_users: many(serverUsers),
-    friend_requests: many(friendRequests),
+    friend_requests_received: many(friendRequests, {
+        relationName: "receiver",
+    }),
+    friend_requests_sent: many(friendRequests, { relationName: "sender" }),
     chats: many(userChats),
     messages: many(messages),
     server_owner: one(servers),

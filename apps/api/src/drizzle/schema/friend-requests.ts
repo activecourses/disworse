@@ -20,10 +20,11 @@ export const friendRequestsRelations = relations(friendRequests, ({ one }) => ({
     sender: one(users, {
         fields: [friendRequests.sender_id],
         references: [users.id],
+        relationName: "sender",
     }),
-
     receiver: one(users, {
         fields: [friendRequests.receiver_id],
         references: [users.id],
+        relationName: "receiver",
     }),
 }));
