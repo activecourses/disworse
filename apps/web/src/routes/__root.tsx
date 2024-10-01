@@ -1,5 +1,10 @@
 import { env } from "@/config/env";
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import type { AuthContext } from "@/providers/auth-provider";
+import {
+    Link,
+    Outlet,
+    createRootRouteWithContext,
+} from "@tanstack/react-router";
 import * as React from "react";
 
 const TanStackRouterDevtools = React.lazy(() =>
@@ -11,7 +16,11 @@ const TanStackRouterDevtools = React.lazy(() =>
     })),
 );
 
-export const Route = createRootRoute({
+interface MyRouterContext {
+    auth: AuthContext;
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
     component: () => (
         <>
             <div className="h-screen">

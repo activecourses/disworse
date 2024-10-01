@@ -1,15 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/providers/auth-provider";
 import { Label } from "@radix-ui/react-label";
 import { FieldApi, useForm } from "@tanstack/react-form";
-import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import {
+    Link,
+    createFileRoute,
+    redirect,
+    useNavigate,
+    useRouter,
+} from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 
 export const Route = createFileRoute("/auth/login")({
     component: LoginComponent,
+    validateSearch: z.object({
+        redirect: z.string().optional().catch(""),
+    }),
+    beforeLoad: ({ context, search }) => {
+        if (context.auth.isAuthenticated) {
+            throw redirect({ to: search.redirect || fallback });
+        }
+    },
 });
+
+const fallback = "/app" as const;
 
 const LoginSchema = z.object({
     email: z.string().email(),
@@ -36,6 +53,9 @@ function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
 
 function LoginComponent() {
     const navigate = useNavigate();
+    const auth = useAuth();
+    const router = useRouter();
+    const search = Route.useSearch();
 
     const form = useForm({
         defaultValues: {
@@ -47,10 +67,9 @@ function LoginComponent() {
             onChange: LoginSchema,
         },
         onSubmit: async ({ value }) => {
-            console.log(value);
-            navigate({
-                to: "/app",
-            });
+            await auth.login(value.email);
+            await router.invalidate();
+            await navigate({ to: search.redirect || fallback });
         },
     });
 

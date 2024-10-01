@@ -1,6 +1,7 @@
 import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
+import { useAuth } from "@/providers/auth-provider";
 import { routeTree } from "@/routeTree.gen";
 
 // Create a new router instance
@@ -24,6 +25,9 @@ const router = createRouter({
             </Link>
         </div>
     ),
+    context: {
+        auth: undefined!, // This will be set after we wrap the app in an AuthProvider
+    },
 });
 
 // Register the router instance for type safety
@@ -34,5 +38,6 @@ declare module "@tanstack/react-router" {
 }
 
 export const AppRouter = () => {
-    return <RouterProvider router={router} />;
+    const auth = useAuth();
+    return <RouterProvider router={router} context={{ auth }} />;
 };

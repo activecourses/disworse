@@ -13,10 +13,11 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as NotFoundImport } from './routes/not-found'
 import { Route as GraphqlTestImport } from './routes/graphql-test'
-import { Route as AppImport } from './routes/app'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthRegisterImport } from './routes/auth.register'
 import { Route as AuthLoginImport } from './routes/auth.login'
+import { Route as AuthAppImport } from './routes/_auth.app'
 
 // Create/Update Routes
 
@@ -30,8 +31,8 @@ const GraphqlTestRoute = GraphqlTestImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppRoute = AppImport.update({
-  path: '/app',
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,6 +51,11 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthAppRoute = AuthAppImport.update({
+  path: '/app',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -61,11 +67,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppImport
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
     '/graphql-test': {
@@ -81,6 +87,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/not-found'
       preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth/app': {
+      id: '/_auth/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthAppImport
+      parentRoute: typeof AuthImport
     }
     '/auth/login': {
       id: '/auth/login'
@@ -101,20 +114,32 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthRouteChildren {
+  AuthAppRoute: typeof AuthAppRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAppRoute: AuthAppRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app': typeof AuthAppRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app': typeof AuthAppRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
 }
@@ -122,9 +147,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/_auth/app': typeof AuthAppRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
 }
@@ -133,25 +159,28 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/app'
+    | ''
     | '/graphql-test'
     | '/not-found'
+    | '/app'
     | '/auth/login'
     | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/app'
+    | ''
     | '/graphql-test'
     | '/not-found'
+    | '/app'
     | '/auth/login'
     | '/auth/register'
   id:
     | '__root__'
     | '/'
-    | '/app'
+    | '/_auth'
     | '/graphql-test'
     | '/not-found'
+    | '/_auth/app'
     | '/auth/login'
     | '/auth/register'
   fileRoutesById: FileRoutesById
@@ -159,7 +188,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AuthRoute: typeof AuthRouteWithChildren
   GraphqlTestRoute: typeof GraphqlTestRoute
   NotFoundRoute: typeof NotFoundRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -168,7 +197,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AuthRoute: AuthRouteWithChildren,
   GraphqlTestRoute: GraphqlTestRoute,
   NotFoundRoute: NotFoundRoute,
   AuthLoginRoute: AuthLoginRoute,
@@ -188,7 +217,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/app",
+        "/_auth",
         "/graphql-test",
         "/not-found",
         "/auth/login",
@@ -198,14 +227,21 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
-    "/app": {
-      "filePath": "app.tsx"
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/app"
+      ]
     },
     "/graphql-test": {
       "filePath": "graphql-test.tsx"
     },
     "/not-found": {
       "filePath": "not-found.tsx"
+    },
+    "/_auth/app": {
+      "filePath": "_auth.app.tsx",
+      "parent": "/_auth"
     },
     "/auth/login": {
       "filePath": "auth.login.tsx"
