@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-
 import hambuger from "@/assets/hamburger.svg";
 import { useResponsive } from "@/providers/responsive-provider";
+import { useEffect, useState } from "react";
 
 export const FriendsNavbar = () => {
     const { openNavs, isNavsOpen } = useResponsive();
@@ -25,7 +24,7 @@ export const FriendsNavbar = () => {
 
     const buttons = (
         <>
-            <button className={buttonsClasses}>Online</button>
+            <button className={`${buttonsClasses} bg-zinc-900`}>Online</button>
             <button className={buttonsClasses}>All</button>
             <button className={buttonsClasses}>Pending</button>
             <button className={buttonsClasses}>Blocked</button>
@@ -37,7 +36,7 @@ export const FriendsNavbar = () => {
 
     return (
         <section
-            className={`border-b border-b-black ${window.innerWidth < 1024 ? "slide-in-from-top animate-in duration-700" : ""}`}
+            className={`-mt-[0.8px] border-b border-b-black ${window.innerWidth < 1024 ? "slide-in-from-top animate-in duration-700" : ""}`}
         >
             <nav className="flex flex-col-reverse items-center justify-between bg-zinc-600/50 px-4 py-2 md:w-full md:flex-row">
                 <div className="hidden flex-row items-center gap-3 md:flex">
