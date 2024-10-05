@@ -82,7 +82,7 @@ function LoginComponent() {
                     form.handleSubmit();
                 }}
             >
-                <Card className="mx-auto w-[24rem] max-w-sm">
+                <Card className="mx-auto w-[20rem] max-w-sm">
                     <CardHeader>
                         <CardTitle className="text-2xl">Login</CardTitle>
                     </CardHeader>
