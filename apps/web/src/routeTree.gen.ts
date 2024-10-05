@@ -15,6 +15,7 @@ import { Route as NotFoundImport } from './routes/not-found'
 import { Route as GraphqlTestImport } from './routes/graphql-test'
 import { Route as AppImport } from './routes/app'
 import { Route as IndexImport } from './routes/index'
+import { Route as AppChannelsMeImport } from './routes/app.channels.me'
 
 // Create/Update Routes
 
@@ -36,6 +37,11 @@ const AppRoute = AppImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AppChannelsMeRoute = AppChannelsMeImport.update({
+  path: '/channels/me',
+  getParentRoute: () => AppRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -70,52 +76,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
+    '/app/channels/me': {
+      id: '/app/channels/me'
+      path: '/channels/me'
+      fullPath: '/app/channels/me'
+      preLoaderRoute: typeof AppChannelsMeImport
+      parentRoute: typeof AppImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AppRouteChildren {
+  AppChannelsMeRoute: typeof AppChannelsMeRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppChannelsMeRoute: AppChannelsMeRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels/me': typeof AppChannelsMeRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels/me': typeof AppChannelsMeRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels/me': typeof AppChannelsMeRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/graphql-test' | '/not-found'
+  fullPaths: '/' | '/app' | '/graphql-test' | '/not-found' | '/app/channels/me'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/graphql-test' | '/not-found'
-  id: '__root__' | '/' | '/app' | '/graphql-test' | '/not-found'
+  to: '/' | '/app' | '/graphql-test' | '/not-found' | '/app/channels/me'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/graphql-test'
+    | '/not-found'
+    | '/app/channels/me'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AppRoute: typeof AppRouteWithChildren
   GraphqlTestRoute: typeof GraphqlTestRoute
   NotFoundRoute: typeof NotFoundRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AppRoute: AppRouteWithChildren,
   GraphqlTestRoute: GraphqlTestRoute,
   NotFoundRoute: NotFoundRoute,
 }
@@ -142,13 +174,20 @@ export const routeTree = rootRoute
       "filePath": "index.tsx"
     },
     "/app": {
-      "filePath": "app.tsx"
+      "filePath": "app.tsx",
+      "children": [
+        "/app/channels/me"
+      ]
     },
     "/graphql-test": {
       "filePath": "graphql-test.tsx"
     },
     "/not-found": {
       "filePath": "not-found.tsx"
+    },
+    "/app/channels/me": {
+      "filePath": "app.channels.me.tsx",
+      "parent": "/app"
     }
   }
 }
