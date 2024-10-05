@@ -32,7 +32,7 @@ function GraphQLTestRoute() {
             <h1 className="mt-4 font-bold text-4xl text-foreground">
                 App GraphQL Test
             </h1>
-            <div className="mt-4 text-center text-lg">
+            <div className="mt-8 text-center text-lg">
                 {isLoading ? (
                     <Skeleton className="h-32 w-[400px] p-4" />
                 ) : error ? (

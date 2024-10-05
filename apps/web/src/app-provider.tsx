@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import * as React from "react";
+import { AuthProvider } from "./providers/auth-provider";
 import { ResponsiveProvider } from "./providers/responsive-provider";
 
 type AppProviderProps = {
@@ -30,12 +31,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         <QueryClientProvider client={queryClient}>
             <ResponsiveProvider>
                 <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                    {env.DEV && (
-                        <React.Suspense fallback={null}>
-                            <ReactQueryDevtoolsProduction />
-                        </React.Suspense>
-                    )}
-                    {children}
+                    <AuthProvider>
+                        {env.DEV && (
+                            <React.Suspense fallback={null}>
+                                <ReactQueryDevtoolsProduction />
+                            </React.Suspense>
+                        )}
+                        {children}
+                    </AuthProvider>
                 </ThemeProvider>
             </ResponsiveProvider>
         </QueryClientProvider>

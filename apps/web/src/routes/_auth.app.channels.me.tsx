@@ -4,7 +4,7 @@ import { FriendsNavbarContent } from "@/components/layouts/friends-navbar-conten
 import { useResponsive } from "@/providers/responsive-provider";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/channels/me")({
+export const Route = createFileRoute("/_auth/app/channels/me")({
     component: MeRoot,
 });
 
