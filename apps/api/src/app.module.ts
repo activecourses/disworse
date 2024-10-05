@@ -32,6 +32,16 @@ import { MailModule } from "./modules/mail/mail.module";
         }),
         AuthModule,
         MailModule,
+        DrizzleModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: (configService: ConfigService) => ({
+                // TODO: add validation for env vars
+                url: configService.get<string>("DATABASE_URL") as string,
+                database: configService.get<string>("POSTGRES_DB") as string,
+            }),
+        }),
+        AuthModule,
     ],
     providers: [AppService, AppResolver],
 })
