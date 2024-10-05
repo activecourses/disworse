@@ -1,21 +1,28 @@
-import { DrizzlePGModule } from "@knaadh/nestjs-drizzle-pg";
-import { Module } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import * as schema from "./schema";
-const ConnectionString = new ConfigService().get("DATABASE_URL");
+import { Global, Module } from "@nestjs/common";
+import { Pool } from "pg";
+import { DatabaseOptions } from "./database-options";
+import {
+    CONNECTION_POOL,
+    ConfigurableDatabaseModule,
+    DATABASE_OPTIONS,
+} from "./drizzle.module-definition";
+import { DrizzleService } from "./drizzle.service";
 
+@Global()
 @Module({
-    imports: [
-        DrizzlePGModule.register({
-            tag: "DB_DEV",
-            pg: {
-                connection: "client",
-                config: {
-                    connectionString: ConnectionString,
-                },
+    providers: [
+        DrizzleService,
+        {
+            provide: CONNECTION_POOL,
+            inject: [DATABASE_OPTIONS],
+            useFactory: (databaseOptions: DatabaseOptions) => {
+                return new Pool({
+                    connectionString: databaseOptions.url,
+                    database: databaseOptions.database,
+                });
             },
-            config: { schema: { ...schema } },
-        }),
+        },
     ],
+    exports: [DrizzleService],
 })
-export class AppModule {}
+export class DrizzleModule extends ConfigurableDatabaseModule {}

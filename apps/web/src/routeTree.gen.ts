@@ -18,6 +18,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AuthRegisterImport } from './routes/auth.register'
 import { Route as AuthLoginImport } from './routes/auth.login'
 import { Route as AuthAppImport } from './routes/_auth.app'
+import { Route as AuthAppChannelsMeImport } from './routes/_auth.app.channels.me'
 
 // Create/Update Routes
 
@@ -54,6 +55,11 @@ const AuthLoginRoute = AuthLoginImport.update({
 const AuthAppRoute = AuthAppImport.update({
   path: '/app',
   getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthAppChannelsMeRoute = AuthAppChannelsMeImport.update({
+  path: '/channels/me',
+  getParentRoute: () => AuthAppRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -109,17 +115,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterImport
       parentRoute: typeof rootRoute
     }
+    '/_auth/app/channels/me': {
+      id: '/_auth/app/channels/me'
+      path: '/channels/me'
+      fullPath: '/app/channels/me'
+      preLoaderRoute: typeof AuthAppChannelsMeImport
+      parentRoute: typeof AuthAppImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AuthAppRouteChildren {
+  AuthAppChannelsMeRoute: typeof AuthAppChannelsMeRoute
+}
+
+const AuthAppRouteChildren: AuthAppRouteChildren = {
+  AuthAppChannelsMeRoute: AuthAppChannelsMeRoute,
+}
+
+const AuthAppRouteWithChildren =
+  AuthAppRoute._addFileChildren(AuthAppRouteChildren)
+
 interface AuthRouteChildren {
-  AuthAppRoute: typeof AuthAppRoute
+  AuthAppRoute: typeof AuthAppRouteWithChildren
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthAppRoute: AuthAppRoute,
+  AuthAppRoute: AuthAppRouteWithChildren,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -129,9 +153,10 @@ export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
-  '/app': typeof AuthAppRoute
+  '/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/channels/me': typeof AuthAppChannelsMeRoute
 }
 
 export interface FileRoutesByTo {
@@ -139,9 +164,10 @@ export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
-  '/app': typeof AuthAppRoute
+  '/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/channels/me': typeof AuthAppChannelsMeRoute
 }
 
 export interface FileRoutesById {
@@ -150,9 +176,10 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
-  '/_auth/app': typeof AuthAppRoute
+  '/_auth/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/_auth/app/channels/me': typeof AuthAppChannelsMeRoute
 }
 
 export interface FileRouteTypes {
@@ -165,6 +192,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth/login'
     | '/auth/register'
+    | '/app/channels/me'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -174,6 +202,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth/login'
     | '/auth/register'
+    | '/app/channels/me'
   id:
     | '__root__'
     | '/'
@@ -183,6 +212,7 @@ export interface FileRouteTypes {
     | '/_auth/app'
     | '/auth/login'
     | '/auth/register'
+    | '/_auth/app/channels/me'
   fileRoutesById: FileRoutesById
 }
 
@@ -241,13 +271,20 @@ export const routeTree = rootRoute
     },
     "/_auth/app": {
       "filePath": "_auth.app.tsx",
-      "parent": "/_auth"
+      "parent": "/_auth",
+      "children": [
+        "/_auth/app/channels/me"
+      ]
     },
     "/auth/login": {
       "filePath": "auth.login.tsx"
     },
     "/auth/register": {
       "filePath": "auth.register.tsx"
+    },
+    "/_auth/app/channels/me": {
+      "filePath": "_auth.app.channels.me.tsx",
+      "parent": "/_auth/app"
     }
   }
 }

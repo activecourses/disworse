@@ -10,7 +10,8 @@ export class AuthService {
 
     async signup(signupDto: SignupDto) {
         const user = signupDto; // TODO: fake signup till we have user model
-        user.password = await hash(signupDto.password);
+        // TODO: fix this
+        // user.password = await hash(signupDto.password);
 
         if (!user) {
             this.logger.error(
