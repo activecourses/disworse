@@ -9,11 +9,13 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { UsersModule } from "./modules/users/users.module";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
+            envFilePath: "../../../.env.backend",
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
@@ -21,7 +23,12 @@ import { AuthModule } from "./modules/auth/auth.module";
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
         }),
-        DrizzleModule,
+        DrizzleModule.forRoot({
+            url: String(process.env.DATABASE_URL),
+            database: String(process.env.POSTGRES_DB),
+        }),
+        AuthModule,
+        UsersModule,
     ],
     controllers: [],
     providers: [
