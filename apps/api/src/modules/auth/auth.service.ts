@@ -1,27 +1,26 @@
 import {
     BadRequestException,
-    Inject,
     Injectable,
     Logger,
     UnauthorizedException,
 } from "@nestjs/common";
 import { eq } from "drizzle-orm";
-import { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { DrizzleService } from "src/drizzle/drizzle.service";
 import * as schema from "src/drizzle/schema";
 import { hash, verify } from "src/utils/argon2";
-import { LoginDto } from "./dto/login.dto";
-import { SignupDto } from "./dto/signup.dto";
+import { LoginDto } from "./dto/login.input";
+import { SignupDto } from "./dto/signup.input";
 
 @Injectable()
 export class AuthService {
     private readonly logger = new Logger(AuthService.name);
 
-    constructor(@Inject("DB_DEV") private db: NodePgDatabase<typeof schema>) {}
+    constructor(private readonly drizzleService: DrizzleService) {}
 
     async signup(signupDto: SignupDto) {
         signupDto.password = await hash(signupDto.password);
 
-        const user = await this.db
+        const user = await this.drizzleService.db
             .insert(schema.users)
             .values(signupDto)
             .returning();
@@ -37,11 +36,11 @@ export class AuthService {
             `Auth - Signup: user with username '${user[0].username}' successfully signed up`,
         );
 
-        return user;
+        return user[0];
     }
 
     async validateUser(loginDto: LoginDto) {
-        const user = await this.db.query.users.findFirst({
+        const user = await this.drizzleService.db.query.users.findFirst({
             where: eq(schema.users.email, loginDto.email),
         });
 
