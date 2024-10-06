@@ -1,11 +1,12 @@
 services:
-    db:
+    pg:
         image: postgres:14.1-alpine
+        container_name: postgres
         restart: always
         ports:
             - 5432:5432
         env_file:
-            - '.env.backend'
+            - ".env.backend"
         # environment:
         #     - POSTGRES_DB
         #     - POSTGRES_USER
@@ -21,9 +22,22 @@ services:
     #         POSTGRES_USER: postgres
     #         POSTGRES_PASSWORD: postgres
 
-    redis:
-        container_name: cache
+    cache:
         image: redis
+        container_name: cache
         restart: always
         ports:
-        - 6379:6379
+            - 6379:6379
+
+    project:
+        image: node
+        working_dir: /app
+        ports:
+            - 3333:3333
+        volumes:
+            - .:/app
+        command: sh -c "scripts/entrypoint.sh"
+        # command: cat "scripts/entrypoint.sh"
+        depends_on:
+            - cache
+            - pg
