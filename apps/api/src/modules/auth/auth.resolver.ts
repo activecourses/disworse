@@ -23,8 +23,6 @@ export class AuthResolver {
     @UseGuards(LocalAuthGuard)
     @Mutation(() => User, { name: "login" })
     async login(@Context() ctx: any, @Args() loginDto: LoginDto) {
-        console.log(ctx.req);
-
         return ctx.req.user;
     }
 }

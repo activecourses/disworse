@@ -11,7 +11,7 @@ export class LocalAuthGuard extends AuthGuard("local") {
         // For GraphQL mutations, set the request body from args
         if (ctx.getType() === "graphql") {
             const args = ctx.getArgs();
-            req.body = args.loginInput || args; // Adjust 'loginInput' if your input name differs
+            req.body = args.loginInput || args;
         }
 
         const result = (await super.canActivate(context)) as boolean;
@@ -21,7 +21,7 @@ export class LocalAuthGuard extends AuthGuard("local") {
 
     getRequest(context: ExecutionContext) {
         const ctx = GqlExecutionContext.create(context);
-        const request = ctx.getContext().req;
-        return request;
+        const { req } = ctx.getContext();
+        return req;
     }
 }
