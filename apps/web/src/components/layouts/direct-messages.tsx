@@ -43,9 +43,12 @@ export const DirectMessages = () => {
                     <div className="flex flex-col gap-1">
                         {Array.from({ length: 30 }).map((_, index) => (
                             <Link
-                                to={index.toString()}
+                                to={`/app/channels/me/${index}`}
                                 key={index}
-                                className="flex h-14 cursor-pointer items-center gap-2 rounded-md px-2 py-2 hover:bg-zinc-900"
+                                onClick={() => {
+                                    if (window.innerWidth < 1024) closeNavs();
+                                }}
+                                className={`flex h-14 cursor-pointer items-center gap-2 rounded-md px-2 py-2 hover:bg-zinc-900 ${pathname === `/app/channels/me/${index}` && window.innerWidth > 1024 ? "bg-zinc-900" : ""}`}
                             >
                                 <div className="relative">
                                     {/* Friend Image */}

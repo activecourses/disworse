@@ -38,7 +38,7 @@ function AuthLayout() {
 
     return (
         <>
-            <div className="fixed bottom-24 left-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
+            <div className="fixed right-2 bottom-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
                 Welcome back, {auth.user}!
                 <button
                     type="button"

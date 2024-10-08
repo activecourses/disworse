@@ -2,7 +2,7 @@ import { DirectMessages } from "@/components/layouts/direct-messages";
 import { FriendsNavbar } from "@/components/layouts/friends-navbar";
 import { FriendsNavbarContent } from "@/components/layouts/friends-navbar-content";
 import { useResponsive } from "@/providers/responsive-provider";
-import { createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useLocation } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth/app/channels/me")({
     component: MeRoot,
@@ -10,6 +10,7 @@ export const Route = createFileRoute("/_auth/app/channels/me")({
 
 function MeRoot() {
     const { isNavsOpen } = useResponsive();
+    const pathname = useLocation().pathname;
 
     return (
         <>
@@ -17,8 +18,16 @@ function MeRoot() {
             <div
                 className={`w-full flex-col ${isNavsOpen ? "hidden lg:flex" : "flex"}`}
             >
-                <FriendsNavbar />
-                <FriendsNavbarContent />
+                {pathname === "/app/channels/me" ? (
+                    <>
+                        <FriendsNavbar />
+                        <FriendsNavbarContent />
+                    </>
+                ) : (
+                    <>
+                        <Outlet />
+                    </>
+                )}
             </div>
         </>
     );
