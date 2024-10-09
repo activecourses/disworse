@@ -3,41 +3,41 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 @ObjectType()
 export class User {
     @Field(() => Int)
-    id: number;
+    public id: number;
 
     @Field()
-    username: string;
+    public username: string;
 
     @Field()
-    name: string;
+    public name: string;
 
     @Field()
-    email: string;
+    public email: string;
 
     @Field()
-    dob: string;
+    public dob: string;
 
     @Field({ nullable: true })
-    bio?: string;
+    public bio?: string;
 
     @Field()
-    createdAt: string;
+    public createdAt: string;
 
     @Field()
-    updatedAt: string;
+    public updatedAt: string;
 
     @Field({ nullable: true })
-    profileImage?: string;
+    public profileImage?: string;
 
     @Field({ nullable: true })
-    coverImage?: string;
+    public coverImage?: string;
 
     @Field({ nullable: true })
-    google_id: string;
+    public google_id: string;
 
     @Field({ nullable: true })
-    github_id: string;
+    public github_id: string;
 
     @Field({ nullable: true })
-    deleted_at: string;
+    public deleted_at: string;
 }
