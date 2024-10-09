@@ -4,7 +4,7 @@ import { AuthGuard } from "@nestjs/passport";
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard("local") {
-    async canActivate(context: ExecutionContext): Promise<boolean> {
+    public async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx = GqlExecutionContext.create(context);
         const { req } = ctx.getContext();
 
@@ -19,7 +19,7 @@ export class LocalAuthGuard extends AuthGuard("local") {
         return result;
     }
 
-    getRequest(context: ExecutionContext) {
+    public getRequest(context: ExecutionContext) {
         const ctx = GqlExecutionContext.create(context);
         const { req } = ctx.getContext();
         return req;
