@@ -10,9 +10,9 @@ export class LoginDto {
     @IsNotEmpty()
     @IsString()
     @Transform(({ value }) => value.trim())
-    email: string;
+    public email: string;
 
     @Field()
     @IsGoodPassword()
-    password: string;
+    public password: string;
 }

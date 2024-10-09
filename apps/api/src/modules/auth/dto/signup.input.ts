@@ -10,26 +10,26 @@ export class SignupDto {
     @IsNotEmpty()
     @IsString()
     @Transform(({ value }) => value.trim())
-    name: string;
+    public name: string;
 
     @Field()
     @IsEmail()
     @IsNotEmpty()
     @IsString()
     @Transform(({ value }) => value.trim())
-    email: string;
+    public email: string;
 
     @Field()
     @IsNotEmpty()
     @IsDateString()
     @Transform(({ value }) => value.trim())
-    dob: string;
+    public dob: string;
 
     @Field()
     @IsGoodUsername()
-    username: string;
+    public username: string;
 
     @Field()
     @IsGoodPassword()
-    password: string;
+    public password: string;
 }
