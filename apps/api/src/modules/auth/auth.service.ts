@@ -5,6 +5,7 @@ import {
     UnauthorizedException,
 } from "@nestjs/common";
 import { eq } from "drizzle-orm";
+import { Request, Response } from "express";
 import { DrizzleService } from "src/drizzle/drizzle.service";
 import * as schema from "src/drizzle/schema";
 import { hash, verify } from "src/utils/argon2";
@@ -32,7 +33,7 @@ export class AuthService {
             throw new BadRequestException("Failed to sign up");
         }
 
-        this.logger.log(
+        this.logger.debug(
             `Auth - Signup: user with username '${user[0].username}' successfully signed up`,
         );
 
@@ -56,9 +57,34 @@ export class AuthService {
             throw new UnauthorizedException("AUTH: Invalid credentials");
         }
 
-        this.logger.log(
+        this.logger.debug(
             `Auth - Validate: user with username '${user.username}' successfully validated`,
         );
         return user;
+    }
+
+    async logout(req: Request, res: Response) {
+        if (!req.isAuthenticated()) {
+            return false; // User is not logged in, resolve as false
+        }
+        return new Promise((resolve, reject) => {
+            req.logout((err) => {
+                if (err) {
+                    this.logger.error("Auth - Logout: Error logging out:", err);
+                    return reject(false); // If there's an error, reject the promise
+                }
+
+                req.session.destroy((sessionErr) => {
+                    if (sessionErr) {
+                        return reject(false);
+                    }
+                    res.clearCookie("connect.sid", { path: "/" }); // Clear the session cookie
+                    this.logger.debug(
+                        "Auth - Logout: Logged out successfully:",
+                    );
+                    return resolve(true); // Resolve the promise as true if everything worked
+                });
+            });
+        });
     }
 }

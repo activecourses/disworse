@@ -4,6 +4,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
+import { Request, Response } from "express";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
@@ -19,6 +20,13 @@ import { UsersModule } from "./modules/users/users.module";
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
+            context: ({
+                req,
+                res,
+            }: {
+                req: Request;
+                res: Response;
+            }): { req: Request; res: Response } => ({ req, res }),
             playground: true,
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
