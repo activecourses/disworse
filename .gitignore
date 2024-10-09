@@ -142,9 +142,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# db
-migrations/
-
 # Frontend
 apps/web/tsconfig.app.tsbuildinfo
 apps/web/tsconfig.node.tsbuildinfo
