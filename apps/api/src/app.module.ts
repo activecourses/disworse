@@ -38,7 +38,6 @@ import { UsersModule } from "./modules/users/users.module";
         AuthModule,
         UsersModule,
     ],
-    controllers: [],
     providers: [
         AppService,
         AppResolver,
