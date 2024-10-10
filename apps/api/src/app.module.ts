@@ -8,6 +8,7 @@ import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { MailModule } from "./modules/mail/mail.module";
 
 @Module({
     imports: [
@@ -20,6 +21,17 @@ import { AuthModule } from "./modules/auth/auth.module";
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
         }),
+        DrizzleModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: (configService: ConfigService) => ({
+                // TODO: add validation for env vars
+                url: configService.get<string>("DATABASE_URL") as string,
+                database: configService.get<string>("POSTGRES_DB") as string,
+            }),
+        }),
+        AuthModule,
+        MailModule,
         DrizzleModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

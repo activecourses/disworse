@@ -29,5 +29,8 @@
     "engines": {
         "node": ">=20"
     },
-    "packageManager": "pnpm@9.11.0"
+    "packageManager": "pnpm@9.11.0",
+    "dependencies": {
+        "@types/nodemailer": "^6.4.16"
+    }
 }

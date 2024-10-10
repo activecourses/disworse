@@ -34,6 +34,7 @@
         "argon2": "^0.41.1",
         "drizzle-orm": "^0.33.0",
         "graphql": "^16.9.0",
+        "nodemailer": "^6.9.15",
         "pg": "^8.13.0",
         "reflect-metadata": "^0.2.0",
         "rxjs": "^7.8.1"
