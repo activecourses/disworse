@@ -23,7 +23,7 @@ export const DirectMessages = () => {
                     />
                 </div>
                 {/* Online Friends */}
-                <div className="scrollbar-none scrollbar-hide overflow-y-auto px-2">
+                <div className="scrollbar-none scrollbar-hide hover:scrollbar-show hover:scrollbar-block overflow-y-auto px-2">
                     <Link
                         to="/app/channels/me"
                         className={`mt-2 mb-2 flex h-14 w-full cursor-pointer items-center gap-2 rounded-md px-2 py-2 font-semibold opacity-80 hover:bg-zinc-900 ${pathname === "/app/channels/me" && window.innerWidth > 1024 ? "bg-zinc-900" : ""}`}

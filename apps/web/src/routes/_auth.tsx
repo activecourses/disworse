@@ -22,23 +22,23 @@ export const Route = createFileRoute("/_auth")({
 });
 
 function AuthLayout() {
-    const router = useRouter();
-    const navigate = Route.useNavigate();
-    const auth = useAuth();
+    // const router = useRouter();
+    // const navigate = Route.useNavigate();
+    // const auth = useAuth();
 
-    const handleLogout = () => {
-        if (window.confirm("Are you sure you want to logout?")) {
-            auth.logout().then(() => {
-                router.invalidate().finally(() => {
-                    navigate({ to: "/" });
-                });
-            });
-        }
-    };
+    // const handleLogout = () => {
+    //     if (window.confirm("Are you sure you want to logout?")) {
+    //         auth.logout().then(() => {
+    //             router.invalidate().finally(() => {
+    //                 navigate({ to: "/" });
+    //             });
+    //         });
+    //     }
+    // };
 
     return (
         <>
-            <div className="fixed right-2 bottom-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
+            {/* <div className="fixed right-2 bottom-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
                 Welcome back, {auth.user}!
                 <button
                     type="button"
@@ -47,7 +47,7 @@ function AuthLayout() {
                 >
                     Logout
                 </button>
-            </div>
+            </div> */}
             <Outlet />
         </>
     );
