@@ -10,10 +10,12 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@radix-ui/react-slot": "^1.1.0",
         "@tanstack/react-query": "^5.56.2",
         "@tanstack/react-router": "^1.58.9",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
+        "framer-motion": "^11.9.0",
         "gql.tada": "^1.8.9",
         "graphql-request": "^7.1.0",
         "lucide-react": "^0.445.0",
@@ -31,6 +33,8 @@
         "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.3.1",
         "autoprefixer": "^10.4.20",
+        "biome": "^0.3.3",
+        "husky": "^9.1.6",
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.12",
         "typescript": "^5.5.3",

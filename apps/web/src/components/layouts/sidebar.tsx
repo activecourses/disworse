@@ -1,4 +1,5 @@
 import { Logo } from "@/components/ui/logo";
+import { Link } from "@tanstack/react-router";
 
 export const Sidebar = () => {
     return (
@@ -14,7 +15,9 @@ export const Sidebar = () => {
                         key={index}
                         className="group relative flex w-full items-center justify-center"
                     >
-                        <Logo alt="server" />
+                        <Link to={`/app/channels/${index}`}>
+                            <Logo alt="server" />
+                        </Link>
                         {/* Notifcation */}
                         <div className="absolute top-1/3 left-0 flex h-2 w-1 items-center justify-center overflow-hidden rounded-full bg-white duration-100 group-hover:top-3 group-hover:h-6"></div>
                     </div>

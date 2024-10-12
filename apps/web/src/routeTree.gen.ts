@@ -15,6 +15,9 @@ import { Route as NotFoundImport } from './routes/not-found'
 import { Route as GraphqlTestImport } from './routes/graphql-test'
 import { Route as AppImport } from './routes/app'
 import { Route as IndexImport } from './routes/index'
+import { Route as AppChannelsImport } from './routes/app.channels'
+import { Route as AppChannelsServerIdImport } from './routes/app.channels.$serverId'
+import { Route as AppChannelsServerIdChannelIdImport } from './routes/app.channels.$serverId.$channelId'
 
 // Create/Update Routes
 
@@ -37,6 +40,22 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const AppChannelsRoute = AppChannelsImport.update({
+  path: '/channels',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppChannelsServerIdRoute = AppChannelsServerIdImport.update({
+  path: '/$serverId',
+  getParentRoute: () => AppChannelsRoute,
+} as any)
+
+const AppChannelsServerIdChannelIdRoute =
+  AppChannelsServerIdChannelIdImport.update({
+    path: '/$channelId',
+    getParentRoute: () => AppChannelsServerIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -70,52 +89,137 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
+    '/app/channels': {
+      id: '/app/channels'
+      path: '/channels'
+      fullPath: '/app/channels'
+      preLoaderRoute: typeof AppChannelsImport
+      parentRoute: typeof AppImport
+    }
+    '/app/channels/$serverId': {
+      id: '/app/channels/$serverId'
+      path: '/$serverId'
+      fullPath: '/app/channels/$serverId'
+      preLoaderRoute: typeof AppChannelsServerIdImport
+      parentRoute: typeof AppChannelsImport
+    }
+    '/app/channels/$serverId/$channelId': {
+      id: '/app/channels/$serverId/$channelId'
+      path: '/$channelId'
+      fullPath: '/app/channels/$serverId/$channelId'
+      preLoaderRoute: typeof AppChannelsServerIdChannelIdImport
+      parentRoute: typeof AppChannelsServerIdImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AppChannelsServerIdRouteChildren {
+  AppChannelsServerIdChannelIdRoute: typeof AppChannelsServerIdChannelIdRoute
+}
+
+const AppChannelsServerIdRouteChildren: AppChannelsServerIdRouteChildren = {
+  AppChannelsServerIdChannelIdRoute: AppChannelsServerIdChannelIdRoute,
+}
+
+const AppChannelsServerIdRouteWithChildren =
+  AppChannelsServerIdRoute._addFileChildren(AppChannelsServerIdRouteChildren)
+
+interface AppChannelsRouteChildren {
+  AppChannelsServerIdRoute: typeof AppChannelsServerIdRouteWithChildren
+}
+
+const AppChannelsRouteChildren: AppChannelsRouteChildren = {
+  AppChannelsServerIdRoute: AppChannelsServerIdRouteWithChildren,
+}
+
+const AppChannelsRouteWithChildren = AppChannelsRoute._addFileChildren(
+  AppChannelsRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppChannelsRoute: typeof AppChannelsRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppChannelsRoute: AppChannelsRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels': typeof AppChannelsRouteWithChildren
+  '/app/channels/$serverId': typeof AppChannelsServerIdRouteWithChildren
+  '/app/channels/$serverId/$channelId': typeof AppChannelsServerIdChannelIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels': typeof AppChannelsRouteWithChildren
+  '/app/channels/$serverId': typeof AppChannelsServerIdRouteWithChildren
+  '/app/channels/$serverId/$channelId': typeof AppChannelsServerIdChannelIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/graphql-test': typeof GraphqlTestRoute
   '/not-found': typeof NotFoundRoute
+  '/app/channels': typeof AppChannelsRouteWithChildren
+  '/app/channels/$serverId': typeof AppChannelsServerIdRouteWithChildren
+  '/app/channels/$serverId/$channelId': typeof AppChannelsServerIdChannelIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/graphql-test' | '/not-found'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/graphql-test'
+    | '/not-found'
+    | '/app/channels'
+    | '/app/channels/$serverId'
+    | '/app/channels/$serverId/$channelId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/graphql-test' | '/not-found'
-  id: '__root__' | '/' | '/app' | '/graphql-test' | '/not-found'
+  to:
+    | '/'
+    | '/app'
+    | '/graphql-test'
+    | '/not-found'
+    | '/app/channels'
+    | '/app/channels/$serverId'
+    | '/app/channels/$serverId/$channelId'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/graphql-test'
+    | '/not-found'
+    | '/app/channels'
+    | '/app/channels/$serverId'
+    | '/app/channels/$serverId/$channelId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AppRoute: typeof AppRouteWithChildren
   GraphqlTestRoute: typeof GraphqlTestRoute
   NotFoundRoute: typeof NotFoundRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AppRoute: AppRouteWithChildren,
   GraphqlTestRoute: GraphqlTestRoute,
   NotFoundRoute: NotFoundRoute,
 }
@@ -142,13 +246,34 @@ export const routeTree = rootRoute
       "filePath": "index.tsx"
     },
     "/app": {
-      "filePath": "app.tsx"
+      "filePath": "app.tsx",
+      "children": [
+        "/app/channels"
+      ]
     },
     "/graphql-test": {
       "filePath": "graphql-test.tsx"
     },
     "/not-found": {
       "filePath": "not-found.tsx"
+    },
+    "/app/channels": {
+      "filePath": "app.channels.tsx",
+      "parent": "/app",
+      "children": [
+        "/app/channels/$serverId"
+      ]
+    },
+    "/app/channels/$serverId": {
+      "filePath": "app.channels.$serverId.tsx",
+      "parent": "/app/channels",
+      "children": [
+        "/app/channels/$serverId/$channelId"
+      ]
+    },
+    "/app/channels/$serverId/$channelId": {
+      "filePath": "app.channels.$serverId.$channelId.tsx",
+      "parent": "/app/channels/$serverId"
     }
   }
 }
