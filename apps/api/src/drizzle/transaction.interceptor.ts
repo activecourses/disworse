@@ -8,7 +8,8 @@ import {
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { Observable, catchError, switchMap, throwError } from "rxjs";
+import { Observable, from, throwError } from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
 import { CONNECTION_POOL } from "./drizzle.module-definition";
 import * as schema from "./schema";
 
@@ -18,33 +19,32 @@ export const DRIZZLE_DATABASE_KEY = "DRIZZLE_DATABASE";
 export class TransactionInterceptor implements NestInterceptor {
     constructor(@Inject(CONNECTION_POOL) private readonly pool: Pool) {}
 
-    async intercept(
+    intercept(
         context: ExecutionContext,
         next: CallHandler<any>,
-    ): Promise<Observable<any>> {
+    ): Observable<any> {
         const gqlContext = GqlExecutionContext.create(context);
         const req = gqlContext.getContext().req;
 
         const db = drizzle(this.pool, { schema });
-        return db.transaction(async (tx) => {
-            // Attach the transaction to the request object
-            // @ts-ignore
-            req[DRIZZLE_DATABASE_KEY] = tx;
 
-            return next
-                .handle()
-                .pipe(
-                    switchMap(async (data) => {
-                        // If we reach this point, it means the request was successful
-                        // The transaction will be automatically committed
-                        return data;
-                    }),
-                    catchError((error) => {
-                        // If an error occurs, the transaction will be automatically rolled back
-                        return throwError(() => error);
-                    }),
-                )
-                .toPromise();
-        });
+        return from(
+            db.transaction(async (tx) => {
+                // Attach the transaction to the request object
+                req[DRIZZLE_DATABASE_KEY] = tx;
+
+                try {
+                    // Execute the route handler
+                    const result = await next.handle().toPromise();
+
+                    // If we reach this point, it means the request was successful
+                    // The transaction will be automatically committed
+                    return result;
+                } catch (error) {
+                    // If an error occurs, the transaction will be automatically rolled back
+                    throw error;
+                }
+            }),
+        ).pipe(catchError((error) => throwError(() => error)));
     }
 }
