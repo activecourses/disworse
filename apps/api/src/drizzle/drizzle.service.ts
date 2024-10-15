@@ -14,7 +14,8 @@ export class DrizzleService {
     ) {}
 
     public get db(): NodePgDatabase<typeof schema> {
-        const req = this.context.req;
-        return req[DRIZZLE_DATABASE_KEY] ?? drizzle(this.pool, { schema });
+        return (
+            this.context[DRIZZLE_DATABASE_KEY] ?? drizzle(this.pool, { schema })
+        );
     }
 }

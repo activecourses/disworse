@@ -24,14 +24,14 @@ export class TransactionInterceptor implements NestInterceptor {
         next: CallHandler<any>,
     ): Observable<any> {
         const gqlContext = GqlExecutionContext.create(context);
-        const req = gqlContext.getContext().req;
+        const ctx = gqlContext.getContext();
 
         const db = drizzle(this.pool, { schema });
 
         return from(
             db.transaction(async (tx) => {
                 // Attach the transaction to the request object
-                req[DRIZZLE_DATABASE_KEY] = tx;
+                ctx[DRIZZLE_DATABASE_KEY] = tx;
 
                 try {
                     // Execute the route handler
@@ -43,6 +43,8 @@ export class TransactionInterceptor implements NestInterceptor {
                 } catch (error) {
                     // If an error occurs, the transaction will be automatically rolled back
                     throw error;
+                } finally {
+                    delete ctx[DRIZZLE_DATABASE_KEY];
                 }
             }),
         ).pipe(catchError((error) => throwError(() => error)));
