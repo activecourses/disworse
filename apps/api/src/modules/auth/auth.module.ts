@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
-import { AuthenticatedGuard } from "src/common/guards/auth.guard";
+import { AuthenticatedGuard } from "../../common/guards/auth.guard";
 import { AuthResolver } from "./auth.resolver";
 import { AuthService } from "./auth.service";
 import { LocalStrategy } from "./passport-strategies/local.strategy";

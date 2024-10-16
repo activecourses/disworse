@@ -6,9 +6,9 @@ import {
 } from "@nestjs/common";
 import { eq } from "drizzle-orm";
 import { Request, Response } from "express";
-import { DrizzleService } from "src/drizzle/drizzle.service";
-import * as schema from "src/drizzle/schema";
-import { hash, verify } from "src/utils/argon2";
+import { DrizzleService } from "../../drizzle/drizzle.service";
+import * as schema from "../../drizzle/schema";
+import { hash, verify } from "../../utils/argon2";
 import { LoginDto } from "./dto/login.input";
 import { SignupDto } from "./dto/signup.input";
 

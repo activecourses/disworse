@@ -2,31 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
   login(email: String!, password: String!): User!
   logout: Boolean!
-  removeUser(id: Int!): User!
   signup(dob: String!, email: String!, name: String!, password: String!, username: String!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
   db: String!
   hello: String!
-  user(id: Int!): User!
-  users: [User!]!
-}
-
-input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 type User {

@@ -1,8 +1,8 @@
 import { UseGuards } from "@nestjs/common";
 import { Args, Context, Mutation, Resolver } from "@nestjs/graphql";
 import { Request, Response } from "express";
-import { Public } from "src/common/custom-decorators/public-endpoint";
-import { LocalAuthGuard } from "src/common/guards/local-auth.guard";
+import { Public } from "../../common/custom-decorators/public-endpoint";
+import { LocalAuthGuard } from "../../common/guards/local-auth.guard";
 import { User } from "../users/entities/user.entity";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.input";

@@ -1,8 +1,8 @@
 import { ArgsType, Field } from "@nestjs/graphql";
 import { Transform } from "class-transformer";
 import { IsDateString, IsEmail, IsNotEmpty, IsString } from "class-validator";
-import { IsGoodPassword } from "src/common/custom-validation/password";
-import { IsGoodUsername } from "src/common/custom-validation/username";
+import { IsGoodPassword } from "../../../common/custom-validation/password";
+import { IsGoodUsername } from "../../../common/custom-validation/username";
 
 @ArgsType()
 export class SignupDto {

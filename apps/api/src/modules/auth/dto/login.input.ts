@@ -1,7 +1,7 @@
 import { ArgsType, Field } from "@nestjs/graphql";
 import { Transform } from "class-transformer";
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
-import { IsGoodPassword } from "src/common/custom-validation/password";
+import { IsGoodPassword } from "../../../common/custom-validation/password";
 
 @ArgsType()
 export class LoginDto {
