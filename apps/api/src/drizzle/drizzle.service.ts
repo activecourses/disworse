@@ -1,14 +1,21 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Scope } from "@nestjs/common";
+import { CONTEXT } from "@nestjs/graphql";
 import { NodePgDatabase, drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { CONNECTION_POOL } from "./drizzle.module-definition";
 import * as schema from "./schema";
+import { DRIZZLE_DATABASE_KEY } from "./transaction.interceptor";
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class DrizzleService {
-    public db: NodePgDatabase<typeof schema>;
+    constructor(
+        @Inject(CONNECTION_POOL) private readonly pool: Pool,
+        @Inject(CONTEXT) private readonly context: any,
+    ) {}
 
-    constructor(@Inject(CONNECTION_POOL) private readonly pool: Pool) {
-        this.db = drizzle(this.pool, { schema });
+    public get db(): NodePgDatabase<typeof schema> {
+        return (
+            this.context[DRIZZLE_DATABASE_KEY] ?? drizzle(this.pool, { schema })
+        );
     }
 }

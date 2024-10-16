@@ -1,3 +1,4 @@
+import { ContextIdFactory } from "@nestjs/core";
 import { Test, TestingModule } from "@nestjs/testing";
 import { AppModule } from "./app.module";
 import { AppResolver } from "./app.resolver";
@@ -13,7 +14,12 @@ describe("AppService", () => {
             imports: [AppModule],
         }).compile();
 
-        appResolver = app.get<AppResolver>(AppResolver);
+        const contextId = ContextIdFactory.create();
+        jest.spyOn(ContextIdFactory, "getByRequest").mockImplementation(
+            () => contextId,
+        );
+
+        appResolver = await app.resolve(AppResolver, contextId);
     });
 
     describe("root", () => {
