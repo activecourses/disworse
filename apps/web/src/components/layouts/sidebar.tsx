@@ -27,7 +27,7 @@ export const Sidebar = () => {
                             >
                                 <Logo alt="Dashboard" />
                                 <div
-                                    className={`absolute left-0 flex w-1 items-center justify-center overflow-hidden rounded-full bg-white duration-100 ${pathname === "/app/channels/me" && window.innerWidth > 1024 ? "top-3 h-2/3 " : "top-1/2 h-2 group-hover:top-5 group-hover:h-6"}`}
+                                    className={`absolute left-0 flex w-1 items-center justify-center overflow-hidden rounded-full bg-white duration-100 ${pathname.startsWith("/app/channels/me") && window.innerWidth > 1024 ? "top-3 h-2/3" : "top-1/2 h-2 group-hover:top-5 group-hover:h-6"}`}
                                 ></div>
                             </Link>
                         </TooltipTrigger>

@@ -1,11 +1,10 @@
+import { useAuth } from "@/providers/auth-provider";
 import {
     Outlet,
     createFileRoute,
     redirect,
     useRouter,
 } from "@tanstack/react-router";
-
-import { useAuth } from "@/providers/auth-provider";
 
 export const Route = createFileRoute("/_auth")({
     beforeLoad: ({ context, location }) => {
@@ -38,7 +37,7 @@ function AuthLayout() {
 
     return (
         <>
-            <div className="fixed bottom-24 left-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
+            <div className="fixed right-2 bottom-14 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
                 Welcome back, {auth.user}!
                 <button
                     type="button"
