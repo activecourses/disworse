@@ -4,6 +4,7 @@ import { MailContext } from "./Providers/mail-context";
 import { mailOptions } from "./Providers/mailOptions.interface";
 import { NodemailerStrategy } from "./Providers/nodemailer";
 
+/* this is the mail service class where it used in other services or controllers */
 @Injectable()
 export class MailService {
     private mailContext: MailContext;
@@ -16,7 +17,6 @@ export class MailService {
     changeStrategyToNodemailer() {
         this.mailContext.setStrategy(new NodemailerStrategy());
     }
-    // other stra
 
     async welcomeUser(email: string) {
         await this.mailContext.WelcomeUser(email);

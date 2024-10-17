@@ -13,10 +13,6 @@ export class AuthController {
     async signup(@Body() signupDto: SignupDto) {
         const user = await this.authService.signup(signupDto);
 
-        // const nodemailer = new NodemailerStrategy();
-        // const mail = new MailService(nodemailer);
-        // mail.welcomeUser("test@gmail.com");
-
         return new SerializedUser(user);
     }
 }

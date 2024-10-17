@@ -7,7 +7,9 @@ export class NodemailerStrategy implements mailOptions {
 
     constructor() {
         this.transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "mail.spacemail.com",
+            port: 465, // Usually 587 for TLS, 465 for SSL
+            secure: true, // true for 465, false for other ports
             auth: {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_PASSWORD,
