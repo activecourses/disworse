@@ -1,4 +1,4 @@
-import replay from "@/assets/replay.svg";
+import reply from "@/assets/reply.svg";
 
 export const MessageActions = ({
     reactHandler,
@@ -19,7 +19,7 @@ export const MessageActions = ({
                 </button>
             ))}
             <button className="rounded-lg p-0 hover:scale-105 hover:bg-zinc-800/50 md:p-1">
-                <img src={replay} alt="Replay" />
+                <img src={reply} alt="Reply" />
             </button>
         </div>
     );
