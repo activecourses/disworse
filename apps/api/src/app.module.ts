@@ -10,12 +10,14 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { validate } from "./utils/env.validate";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: "../../../.env.backend",
+            envFilePath: ".env",
+            validate,
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
@@ -29,6 +31,9 @@ import { AuthModule } from "./modules/auth/auth.module";
             playground: true,
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
+            // https://github.com/nestjs/nest/issues/1905#issuecomment-479431252
+            // @ts-ignore
+            context: ({ req }) => ({ req }),
         }),
         DrizzleModule.forRoot({
             url: String(process.env.DATABASE_URL),
