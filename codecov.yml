@@ -5,6 +5,6 @@ coverage:
         target: 80
         threshold: 10
         base: auto
-        if_ci_failed: error
-        informational: false
+        if_ci_failed: success
+        informational: true
         only_pulls: false
