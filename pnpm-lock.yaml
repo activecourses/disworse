@@ -40,7 +40,7 @@ importers:
         version: 12.2.0(@apollo/server@4.11.0(graphql@16.9.0))(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/graphql@12.2.0(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(class-transformer@0.5.1)(class-validator@0.14.1)(graphql@16.9.0)(reflect-metadata@0.2.2))(graphql@16.9.0)
       '@nestjs/cache-manager':
         specifier: ^2.2.2
-        version: 2.2.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(cache-manager@6.1.0)(rxjs@7.8.1)
+        version: 2.2.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(cache-manager@6.1.1)(rxjs@7.8.1)
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -63,8 +63,8 @@ importers:
         specifier: ^0.41.1
         version: 0.41.1
       cache-manager:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.1.1
+        version: 6.1.1
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -708,9 +708,11 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -2551,8 +2553,8 @@ packages:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
 
-  cache-manager@6.1.0:
-    resolution: {integrity: sha512-Z0gN4aTrCPNxWnXJqdTM+fAFbjYV1al9PNb3bShtw8CeNuaDloYm184f4wPNodPzTBznT3F2sqzTpwlGcL2Hjg==}
+  cache-manager@6.1.1:
+    resolution: {integrity: sha512-Gvj+GMPYJwYWZKvvk2Ssrd+HXjfVycQwblLfU9ezqAS2AJiesB2wqu6q/vQIouSZuGvfra4J85aO9RhQeMpVWQ==}
 
   call-bind@1.0.7:
     resolution: {integrity: sha512-GHTSNSYICQ7scH7sZ+M2rFopRoLh8t2bLSW6BbgrtLsahOIB5iyAVJf9GjWK3cYTDaMj4XdBpM1cA6pIS0Kv2w==}
@@ -3814,8 +3816,8 @@ packages:
     resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
     engines: {'0': node >= 0.2.0}
 
-  keyv@5.0.3:
-    resolution: {integrity: sha512-WmefGWaWkWiWDkIasfHxpWmM1lych/LPtRmNj8jnIQVGLsAgFw73Vg9utZ7ss97/JwRlERABb/fSejTPY4hlZQ==}
+  keyv@5.1.0:
+    resolution: {integrity: sha512-FUr1fbKVsj9IZkPkY9reJ80Lp2B3ldtFXH+xK0wvZYzOpwgHV1er3xP4JUhu2cgkV2X3BJQw+hzAbIGqa+hNIA==}
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -6453,11 +6455,11 @@ snapshots:
       lodash.omit: 4.5.0
       tslib: 2.6.3
 
-  '@nestjs/cache-manager@2.2.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(cache-manager@6.1.0)(rxjs@7.8.1)':
+  '@nestjs/cache-manager@2.2.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(cache-manager@6.1.1)(rxjs@7.8.1)':
     dependencies:
       '@nestjs/common': 10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      cache-manager: 6.1.0
+      cache-manager: 6.1.1
       rxjs: 7.8.1
 
   '@nestjs/cli@10.4.5(esbuild@0.19.12)':
@@ -7626,9 +7628,9 @@ snapshots:
 
   bytes@3.1.2: {}
 
-  cache-manager@6.1.0:
+  cache-manager@6.1.1:
     dependencies:
-      keyv: 5.0.3
+      keyv: 5.1.0
 
   call-bind@1.0.7:
     dependencies:
@@ -9052,7 +9054,7 @@ snapshots:
 
   jsonparse@1.3.1: {}
 
-  keyv@5.0.3:
+  keyv@5.1.0:
     dependencies:
       '@keyv/serialize': 1.0.1
 
