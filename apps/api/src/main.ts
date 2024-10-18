@@ -1,4 +1,5 @@
 import { ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import RedisStore from "connect-redis";
 import * as session from "express-session";
@@ -8,7 +9,8 @@ import { AppModule } from "./app.module";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    app.setGlobalPrefix("api");
+    const configService = app.get(ConfigService);
+
     app.useGlobalPipes(
         new ValidationPipe({
             transform: true,
@@ -17,16 +19,16 @@ async function bootstrap() {
     );
 
     const redisClient = await createClient({
-        url: String(process.env.REDIS_URL),
+        url: String(configService.getOrThrow("REDIS_URL")),
     }).connect();
 
     app.use(
         session({
-            secret: String(process.env.SESSION_SECRET),
+            secret: configService.getOrThrow<string>("SESSION_SECRET"),
             resave: false,
             saveUninitialized: false,
             cookie: {
-                maxAge: Number(process.env.COOKIE_MAX_AGE),
+                maxAge: configService.getOrThrow<number>("COOKIE_MAX_AGE"),
                 httpOnly: true,
             },
             store: new RedisStore({
@@ -37,8 +39,8 @@ async function bootstrap() {
 
     app.use(passport.initialize());
     app.use(passport.session());
-
     app.enableCors();
-    await app.listen(process.env.PORT || 3333);
+
+    await app.listen(configService.get("PORT") || 3333);
 }
 bootstrap();
