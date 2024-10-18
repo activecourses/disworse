@@ -29,6 +29,9 @@ import { AuthModule } from "./modules/auth/auth.module";
             playground: true,
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
+            // https://github.com/nestjs/nest/issues/1905#issuecomment-479431252
+            // @ts-ignore
+            context: ({ req }) => ({ req }),
         }),
         DrizzleModule.forRoot({
             url: String(process.env.DATABASE_URL),
