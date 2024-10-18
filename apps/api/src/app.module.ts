@@ -10,12 +10,14 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { validate } from "./utils/env.validate";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: "../../../.env.backend",
+            envFilePath: ".env",
+            validate,
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
