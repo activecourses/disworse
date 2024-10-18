@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
+        "start": "pnpm run preview",
         "typecheck": "tsc -b --noEmit",
         "preview": "vite preview"
     },
