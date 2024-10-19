@@ -1,6 +1,7 @@
 import { Query, Resolver } from "@nestjs/graphql";
 import { AppService } from "./app.service";
 import { Public } from "./common/custom-decorators/public-endpoint";
+import { User } from "./modules/users/entities/user.entity";
 
 @Resolver()
 export class AppResolver {
@@ -12,8 +13,8 @@ export class AppResolver {
         return this.appService.getHello();
     }
 
-    @Query(() => String)
-    async db(): Promise<string> {
+    @Query(() => [User])
+    async db(): Promise<User[]> {
         return this.appService.testDb();
     }
 }

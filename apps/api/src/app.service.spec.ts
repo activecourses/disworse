@@ -22,7 +22,7 @@ describe("[GraphQL] [UnitTesting] AppService", () => {
                         db: {
                             query: {
                                 users: {
-                                    findMany: jest.fn(() => []),
+                                    findMany: jest.fn().mockReturnValue([]),
                                 },
                             },
                         },
@@ -40,8 +40,8 @@ describe("[GraphQL] [UnitTesting] AppService", () => {
     it('should return "Hello World!"', async () => {
         const spy = jest.spyOn(drizzleService.db.query.users, "findMany");
 
-        const result = appService.testDb();
+        const result = await appService.testDb();
         expect(spy).toHaveBeenCalled();
-        expect(result).toBe("[]");
+        expect(result).toStrictEqual([]);
     });
 });
