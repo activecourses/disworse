@@ -1,18 +1,18 @@
 import { INestApplication } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
-import { AppModule } from "./../src/app.module";
+import { TestManager } from "./TestManager";
 
-describe("AppController (e2e)", () => {
+describe("[GraphQL] [E2E] AppModule", () => {
+    const testManager = new TestManager();
     let app: INestApplication;
 
-    beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
+    beforeAll(async () => {
+        await testManager.beforeAll();
+        app = testManager.app;
+    });
 
-        app = moduleFixture.createNestApplication();
-        await app.init();
+    afterAll(async () => {
+        await testManager.afterAll();
     });
 
     it("/graphql helloworld", () => {
