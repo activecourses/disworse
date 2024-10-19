@@ -3,12 +3,19 @@ import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import RedisStore from "connect-redis";
 import * as session from "express-session";
+import { WinstonModule } from "nest-winston";
 import * as passport from "passport";
 import { createClient } from "redis";
+import { createLogger } from "winston";
 import { AppModule } from "./app.module";
+import { winstonConfig } from "./utils/winston.config";
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const loggerInstance = createLogger(winstonConfig);
+
+    const app = await NestFactory.create(AppModule, {
+        logger: WinstonModule.createLogger({ instance: loggerInstance }),
+    });
     const configService = app.get(ConfigService);
 
     app.useGlobalPipes(

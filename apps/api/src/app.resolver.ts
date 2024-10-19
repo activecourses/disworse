@@ -12,6 +12,7 @@ export class AppResolver {
         return this.appService.getHello();
     }
 
+    @Public()
     @Query(() => String)
     async db(): Promise<string> {
         return this.appService.testDb();

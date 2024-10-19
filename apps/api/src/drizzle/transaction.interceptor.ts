@@ -3,6 +3,7 @@ import {
     ExecutionContext,
     Inject,
     Injectable,
+    Logger,
     NestInterceptor,
 } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
@@ -10,6 +11,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { Observable, from, throwError } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
+import { DrizzleLogger } from "./drizzle.logger";
 import { CONNECTION_POOL } from "./drizzle.module-definition";
 import * as schema from "./schema";
 
@@ -17,6 +19,8 @@ export const DRIZZLE_DATABASE_KEY = "DRIZZLE_DATABASE";
 
 @Injectable()
 export class TransactionInterceptor implements NestInterceptor {
+    private readonly logger = new Logger("Drizzle:TransactionInterceptor");
+
     constructor(@Inject(CONNECTION_POOL) private readonly pool: Pool) {}
 
     intercept(
@@ -26,7 +30,10 @@ export class TransactionInterceptor implements NestInterceptor {
         const gqlContext = GqlExecutionContext.create(context);
         const ctx = gqlContext.getContext();
 
-        const db = drizzle(this.pool, { schema });
+        const db = drizzle(this.pool, {
+            schema,
+            logger: new DrizzleLogger(this.logger),
+        });
 
         return from(
             db.transaction(async (tx) => {
