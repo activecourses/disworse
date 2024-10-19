@@ -10,7 +10,6 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
-import { MailModule } from "./modules/mail/mail.module";
 import { validate } from "./utils/env.validate";
 
 @Module({
@@ -39,17 +38,6 @@ import { validate } from "./utils/env.validate";
         DrizzleModule.forRoot({
             url: String(process.env.DATABASE_URL),
             database: String(process.env.POSTGRES_DB),
-        }),
-        AuthModule,
-        MailModule,
-        DrizzleModule.forRootAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: (configService: ConfigService) => ({
-                // TODO: add validation for env vars
-                url: configService.get<string>("DATABASE_URL") as string,
-                database: configService.get<string>("POSTGRES_DB") as string,
-            }),
         }),
         AuthModule,
     ],
