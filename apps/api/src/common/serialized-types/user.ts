@@ -4,6 +4,7 @@ export class SerializedUser {
     username: string;
     email: string;
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     constructor(user: any) {
         // TODO: fix any
 
