@@ -9,14 +9,14 @@ type Mutation {
 }
 
 type Query {
-  db: String!
+  db: [User!]!
   hello: String!
 }
 
 type User {
   bio: String
-  coverImage: String
-  createdAt: String!
+  cover_image: String
+  created_at: String
   deleted_at: String
   dob: String!
   email: String!
@@ -24,7 +24,7 @@ type User {
   google_id: String
   id: Int!
   name: String!
-  profileImage: String
-  updatedAt: String!
+  profile_image: String
+  updated_at: String
   username: String!
 }

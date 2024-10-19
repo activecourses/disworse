@@ -1,30 +1,29 @@
 import { ContextIdFactory } from "@nestjs/core";
-import { Test, TestingModule } from "@nestjs/testing";
-import { AppModule } from "./app.module";
+import { TestManager } from "../test/TestManager";
 import { AppResolver } from "./app.resolver";
-import { AppService } from "./app.service";
-import { DrizzleModule } from "./drizzle/drizzle.module";
 
-describe("AppService", () => {
+describe("[GraphQL] [IntegrationTesting] AppResolver", () => {
+    let testManager = new TestManager();
     let appResolver: AppResolver;
 
-    beforeEach(async () => {
-        // TODO: create proper test module / class.
-        const app: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
+    beforeAll(async () => {
+        await testManager.beforeAll();
 
+        // TODO: are there a better handling for this? @xUser5000
         const contextId = ContextIdFactory.create();
         jest.spyOn(ContextIdFactory, "getByRequest").mockImplementation(
             () => contextId,
         );
 
-        appResolver = await app.resolve(AppResolver, contextId);
+        appResolver = await testManager.app.resolve(AppResolver, contextId);
     });
 
-    describe("root", () => {
-        it('should return "Hello World!"', () => {
-            expect(appResolver.hello()).toBe("Hello World!");
-        });
+    afterAll(async () => {
+        await testManager.afterAll();
+    });
+
+    it('should return "Hello World!"', async () => {
+        const result = appResolver.hello();
+        expect(result).toBe("Hello World!");
     });
 });

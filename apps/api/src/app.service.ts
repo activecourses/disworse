@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { DrizzleService } from "./drizzle/drizzle.service";
+import { User } from "./modules/users/entities/user.entity";
 
 @Injectable()
 export class AppService {
@@ -9,8 +10,8 @@ export class AppService {
         return "Hello World!";
     }
 
-    async testDb(): Promise<string> {
+    async testDb(): Promise<User[]> {
         const users = await this.drizzleService.db.query.users.findMany();
-        return `${users}`;
+        return users;
     }
 }
