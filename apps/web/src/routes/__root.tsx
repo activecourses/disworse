@@ -1,5 +1,10 @@
 import { env } from "@/config/env";
-import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import type { AuthContext } from "@/providers/auth-provider";
+import {
+    Link,
+    Outlet,
+    createRootRouteWithContext,
+} from "@tanstack/react-router";
 import * as React from "react";
 
 const TanStackRouterDevtools = React.lazy(() =>
@@ -11,10 +16,16 @@ const TanStackRouterDevtools = React.lazy(() =>
     })),
 );
 
-export const Route = createRootRoute({
+interface MyRouterContext {
+    auth: AuthContext;
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
     component: () => (
         <>
-            <Outlet />
+            <div className="h-screen">
+                <Outlet />
+            </div>
             {env.DEV && (
                 <div className="fixed bottom-12 left-2 z-50 flex w-max justify-center justify-items-center gap-2 rounded-lg border border-slate-600 bg-secondary p-2 align-middle">
                     <Link to="/" className="[&.active]:font-bold">

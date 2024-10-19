@@ -1,9 +1,19 @@
 import { Module } from "@nestjs/common";
-import { AuthController } from "./auth.controller";
+import { PassportModule } from "@nestjs/passport";
+import { AuthenticatedGuard } from "../../common/guards/auth.guard";
+import { AuthResolver } from "./auth.resolver";
 import { AuthService } from "./auth.service";
+import { LocalStrategy } from "./passport-strategies/local.strategy";
+import { SessionSerializer } from "./sessions.serializer";
 
 @Module({
-    providers: [AuthService],
-    controllers: [AuthController],
+    imports: [PassportModule.register({ session: true })],
+    providers: [
+        AuthService,
+        LocalStrategy,
+        AuthenticatedGuard,
+        SessionSerializer,
+        AuthResolver,
+    ],
 })
 export class AuthModule {}

@@ -69,6 +69,13 @@ export default {
                 ".scrollbar-hide::-webkit-scrollbar": {
                     display: "none",
                 },
+                ".scrollbar-show": {
+                    scrollbarWidth: "auto",
+                    "-ms-overflow-style": "auto",
+                },
+                ".scrollbar-block::-webkit-scrollbar": {
+                    display: "block",
+                },
             };
             addUtilities(newUtilities, ["responsive"]);
         },

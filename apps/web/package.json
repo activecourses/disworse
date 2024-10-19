@@ -6,13 +6,17 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "tsc -b --noEmit",
         "preview": "vite preview"
     },
     "dependencies": {
+        "@radix-ui/react-label": "^2.1.0",
         "@radix-ui/react-slot": "^1.1.0",
+        "@tanstack/react-form": "^0.33.0",
+        "@radix-ui/react-tooltip": "^1.1.2",
         "@tanstack/react-query": "^5.56.2",
         "@tanstack/react-router": "^1.58.9",
+        "@tanstack/zod-form-adapter": "^0.33.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "framer-motion": "^11.9.0",

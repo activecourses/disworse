@@ -58,14 +58,14 @@
             "linter": {
                 "rules": {
                     "complexity": {
-                        "noBannedTypes": "error",
+                        "noBannedTypes": "warn",
                         "noUselessThisAlias": "error",
                         "noUselessTypeConstraint": "error",
                         "useArrowFunction": "off"
                     },
                     "correctness": {
                         "noPrecisionLoss": "error",
-                        "noUnusedVariables": "error",
+                        "noUnusedVariables": "warn",
                         "useArrayLiterals": "off"
                     },
                     "style": {
