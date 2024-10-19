@@ -11,7 +11,7 @@
         "lint:fix:unsafe": "biome check . --write --unsafe",
         "prepare": "husky",
         "commitlint": "commitlint --edit",
-        "compose:up": "docker compose up -d --build",
+        "compose:up": "docker compose -f docker-compose.dev.yml up -d --build",
         "compose:down": "docker compose down -v"
     },
     "lint-staged": {
