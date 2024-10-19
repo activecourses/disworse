@@ -11,6 +11,7 @@ import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { validate } from "./utils/env.validate";
+import { ApolloLogger } from "./utils/graphql.logger";
 
 @Module({
     imports: [
@@ -48,6 +49,7 @@ import { validate } from "./utils/env.validate";
             provide: APP_GUARD,
             useClass: AuthenticatedGuard,
         },
+        ApolloLogger,
     ],
 })
 export class AppModule {}
