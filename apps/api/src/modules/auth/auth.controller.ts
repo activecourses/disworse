@@ -1,7 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { SerializedUser } from "../../common/serialized-types/user";
-import { NodemailerStrategy } from "../mail/Providers/nodemailer";
-import { MailService } from "../mail/mail.service";
 import { AuthService } from "./auth.service";
 import { SignupDto } from "./dto/signup.dto";
 

@@ -32,7 +32,7 @@ jobs:
         run: pnpm run compose:up
       - name: Running API Tests
         working-directory: ./apps/api
-        run: pnpm run test
+        run: pnpm run test && pnpm run test:e2e
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:

@@ -1,5 +1,6 @@
 import searchIcon from "@/assets/search-icon.svg";
 import { Logo } from "@/components/ui/logo";
+import { Link } from "@tanstack/react-router";
 import { OnlineStatus } from "../ui/status/online";
 
 export const FriendsNavbarContent = () => {
@@ -25,7 +26,8 @@ export const FriendsNavbarContent = () => {
                 </h1>
                 <div className="flex flex-col gap-2">
                     {Array.from({ length: 5 }).map((_, index) => (
-                        <div
+                        <Link
+                            to={`/app/channels/me/${index}`}
                             key={index}
                             className="group flex cursor-pointer items-center gap-3 rounded-md bg-zinc-700/50 px-5 py-4 hover:bg-zinc-700"
                         >
@@ -45,7 +47,7 @@ export const FriendsNavbarContent = () => {
                                 </h2>
                                 <p className="text-white/50">Online</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
