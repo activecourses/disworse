@@ -2,6 +2,7 @@ import { checkChannel } from "@/lib/utils";
 import { useRouter } from "@tanstack/react-router";
 import { Channels } from "../servers-layout/channels";
 import Chat from "../servers-layout/chat";
+import { Sidebar } from "./sidebar";
 
 export const Servers = () => {
     const user = {
@@ -112,6 +113,7 @@ export const Servers = () => {
 
     return (
         <div className="flex overflow-hidden">
+            <Sidebar />
             <Channels server={server} user={user} />
             {isChannel ? (
                 <Chat />
