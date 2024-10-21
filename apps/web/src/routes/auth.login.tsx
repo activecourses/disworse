@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import GitHubSignIn from "@/features/auth/components/github-signin";
 import { useAuth } from "@/providers/auth-provider";
 import { Label } from "@radix-ui/react-label";
 import { FieldApi, useForm } from "@tanstack/react-form";
@@ -162,13 +163,7 @@ function LoginComponent() {
                                 >
                                     Login with Google
                                 </Button>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    className="w-full"
-                                >
-                                    Login with Github
-                                </Button>
+                                <GitHubSignIn />
                             </div>
                         </div>
                         <div className="mt-4 text-center text-sm">
