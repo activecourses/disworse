@@ -12,6 +12,9 @@ export default {
             height: ["group-hover"],
             top: ["group-hover"],
             colors: {
+                mainBlack: "var(--mainBlack)",
+                mainBlackHover: "var(--mainBlackHover)",
+                secondBlack: "var(--secondBlack)",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
                 card: {
