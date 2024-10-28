@@ -1,6 +1,5 @@
 import { plainToInstance } from "class-transformer";
 import {
-    IsBoolean,
     IsEnum,
     IsNumber,
     IsString,
@@ -16,14 +15,16 @@ enum Environment {
 }
 
 export class EnvironmentVariables {
+    // ENV
     @IsEnum(Environment)
     NODE_ENV: Environment;
 
     @IsNumber()
-    @Min(0)
+    @Min(1024)
     @Max(65535)
-    PORT: number;
+    BACKEND_PORT: number;
 
+    // POSTGRES
     @IsString()
     DATABASE_URL: string;
 
@@ -36,9 +37,27 @@ export class EnvironmentVariables {
     @IsString()
     POSTGRES_PASSWORD: string;
 
+    @IsNumber()
+    @Min(1024)
+    @Max(65535)
+    POSTGRES_PORT: number;
+
+    @IsString()
+    POSTGRES_HOST: string;
+
+    // REDIS
     @IsString()
     REDIS_URL: string;
 
+    @IsNumber()
+    @Min(1024)
+    @Max(65535)
+    REDIS_PORT: number;
+
+    @IsString()
+    REDIS_HOST: string;
+
+    // SESSION AND COOKIES
     @IsString()
     SESSION_SECRET: string;
 

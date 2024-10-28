@@ -1,0 +1,33 @@
+services:
+    pg:
+        image: postgres:17-alpine
+        container_name: postgres
+        restart: always
+        ports:
+            - ${POSTGRES_PORT}:5432
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+
+    cache:
+        image: redis
+        container_name: cache
+        restart: always
+        ports:
+            - ${REDIS_PORT}:6379
+
+    api:
+        build: ./apps/api
+        container_name: api
+        ports:
+            - ${BACKEND_PORT}:${BACKEND_PORT}
+        env_file:
+            - .env
+        environment:
+            - NODE_ENV = ${NODE_ENV}
+            - DATABASE_URL = ${DATABASE_URL}
+            - REDIS_URL = ${REDIS_URL}
+        depends_on:
+            - pg
+            - cache

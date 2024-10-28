@@ -5,8 +5,7 @@ services:
         restart: always
         ports:
             - 5432:5432
-        env_file:
-            - ./apps/api/.env
+
     cache:
         image: redis
         container_name: cache

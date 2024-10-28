@@ -17,7 +17,8 @@ import { validate } from "./utils/env.validate";
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: ".env",
+            envFilePath: "../../.env",
+            expandVariables: true,
             validate,
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({

@@ -10,7 +10,6 @@ import { AppModule } from "./app.module";
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
-
     app.useGlobalPipes(
         new ValidationPipe({
             transform: true,
@@ -43,4 +42,5 @@ async function bootstrap() {
 
     await app.listen(configService.get("PORT") || 3333);
 }
+
 bootstrap();

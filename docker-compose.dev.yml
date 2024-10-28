@@ -5,8 +5,6 @@ services:
         restart: always
         ports:
             - 5432:5432
-        env_file:
-            - ./apps/api/.env
 
     cache:
         image: redis:7.2.4-alpine
