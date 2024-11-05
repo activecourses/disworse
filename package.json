@@ -4,15 +4,22 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "build": "turbo build",
-        "dev": "turbo dev",
+        "build:web": "turbo build --filter web",
+        "build:api": "turbo build --filter api",
+        "dev": "pnpm run compose:up && turbo dev",
+        "dev:web": "turbo dev --filter web",
+        "dev:api": "pnpm run compose:up && turbo dev --filter api",
+        "start": "pnpm run compose:up && turbo build && turbo start --filter api",
+        "start:web": "pnpm run build:web && turbo start --filter web",
+        "start:api": "pnpm run compose:up && pnpm run build:api && turbo start --filter api",
+        "compose:up": "docker compose -f docker-compose.dev.yml up -d --build",
+        "compose:down": "docker compose down -v",
         "typecheck": "turbo typecheck",
         "lint": "biome check .",
         "lint:fix": "biome check . --write",
         "lint:fix:unsafe": "biome check . --write --unsafe",
         "prepare": "husky",
-        "commitlint": "commitlint --edit",
-        "compose:up": "docker compose up -d --build",
-        "compose:down": "docker compose down -v"
+        "commitlint": "commitlint --edit"
     },
     "lint-staged": {
         "**/*": ["biome check . --write"]

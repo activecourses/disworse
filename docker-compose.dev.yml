@@ -1,15 +1,16 @@
 services:
     pg:
-        image: postgres:14.1-alpine
-        container_name: postgres
+        image: postgres:15-alpine
+        container_name: postgres-dev
         restart: always
         ports:
             - 5432:5432
         env_file:
             - ./apps/api/.env
+
     cache:
-        image: redis
-        container_name: cache
+        image: redis:7.2.4-alpine
+        container_name: cache-dev
         restart: always
         ports:
             - 6379:6379

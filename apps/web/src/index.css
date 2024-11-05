@@ -66,4 +66,19 @@
         @apply bg-background text-foreground;
         font-family: "Open Sans", sans-serif;
     }
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-zinc-900;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-zinc-500 rounded-md;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-zinc-400;
+    }
 }

@@ -4,6 +4,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { Request, Response } from "express";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
@@ -11,12 +12,14 @@ import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { UserModule } from "./modules/users/user.module";
+import { validate } from "./utils/env.validate";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: "../../../.env.backend",
+            envFilePath: ".env",
+            validate,
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
@@ -30,6 +33,9 @@ import { UserModule } from "./modules/users/user.module";
             playground: true,
             sortSchema: true,
             autoSchemaFile: join(process.cwd(), "schema.graphql"),
+            // https://github.com/nestjs/nest/issues/1905#issuecomment-479431252
+            // @ts-ignore
+            context: ({ req }) => ({ req }),
         }),
         DrizzleModule.forRoot({
             url: String(process.env.DATABASE_URL),
@@ -37,6 +43,10 @@ import { UserModule } from "./modules/users/user.module";
         }),
         AuthModule,
         UserModule,
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, "../../..", "web", "dist"),
+            exclude: ["/api*", "/graphql*"],
+        }),
     ],
     providers: [
         AppService,
