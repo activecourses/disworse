@@ -2,7 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserInput {
+  bio: String
+  cover_image_url: String
+  dob: String!
+  email: String!
+  github_id: String
+  google_id: String
+  name: String!
+  password: String!
+  profile_image_url: String
+  username: String!
+}
+
 type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
   login(email: String!, password: String!): User!
   logout: Boolean!
   signup(dob: String!, email: String!, name: String!, password: String!, username: String!): User!
@@ -11,6 +25,7 @@ type Mutation {
 type Query {
   db: String!
   hello: String!
+  user(id: Int!): User!
 }
 
 type User {

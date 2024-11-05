@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { eq } from "drizzle-orm";
-import { NodePgDatabase, drizzle } from "drizzle-orm/node-postgres";
 import { DrizzleService } from "src/drizzle/drizzle.service";
 import { users } from "../../drizzle/schema/user";
 import { CreateUserInput } from "./dto/create-user.input";
@@ -11,13 +10,12 @@ export class UserService {
     constructor(private readonly drizzleService: DrizzleService) {}
 
     async create(createUserInput: CreateUserInput) {
-        console.log(createUserInput);
-        await this.drizzleService.db.insert(users).values(createUserInput);
+        const user = await this.drizzleService.db
+            .insert(users)
+            .values(createUserInput)
+            .returning();
+        return user[0];
     }
-
-    //   async createOAuthUser(oAuthUserData: Partial<CreateUserInput>) {
-    //     await this.drizzleService.db.insert(users).values(oAuthUserData);
-    //   }
 
     async findAll() {
         const Users = await this.drizzleService.db.select().from(users);

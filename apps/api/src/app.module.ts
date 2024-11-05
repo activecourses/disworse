@@ -10,6 +10,7 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { UserModule } from "./modules/users/user.module";
 
 @Module({
     imports: [
@@ -35,6 +36,7 @@ import { AuthModule } from "./modules/auth/auth.module";
             database: String(process.env.POSTGRES_DB),
         }),
         AuthModule,
+        UserModule,
     ],
     providers: [
         AppService,
