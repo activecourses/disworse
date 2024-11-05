@@ -45,9 +45,9 @@ export class AuthController {
             email,
         };
         if (!user) {
-            res.redirect("http://localhost:3333/api/auth/complete-profile"); // TODO: change to a frontend url
+            res.redirect("http://localhost:3333/auth/complete-profile"); // TODO: change to a frontend url
         } else {
-            res.redirect("http://localhost:3333/api/auth/dashboard"); // TODO: change to a frontend url
+            res.redirect("http://localhost:3333/auth/dashboard"); // TODO: change to a frontend url
         }
     }
 
