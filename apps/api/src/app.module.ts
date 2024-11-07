@@ -4,6 +4,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { Request, Response } from "express";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
@@ -41,6 +42,10 @@ import { ApolloLogger } from "./utils/graphql.logger";
             database: String(process.env.POSTGRES_DB),
         }),
         AuthModule,
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, "../../..", "web", "dist"),
+            exclude: ["/api*", "/graphql*"],
+        }),
     ],
     providers: [
         AppService,
