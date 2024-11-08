@@ -1,5 +1,6 @@
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";
 import RedisStore from "connect-redis";
 import * as session from "express-session";
@@ -10,7 +11,7 @@ import { AppModule } from "../src/app.module";
 export class TestManager {
     // biome-ignore lint/suspicious/noExplicitAny: it is any.
     public httpServer: any;
-    public app: INestApplication;
+    public app: INestApplication<NestExpressApplication>;
 
     // TODO: Find a way to abstract this logic, found in main.ts too.
     async beforeAll(): Promise<void> {
