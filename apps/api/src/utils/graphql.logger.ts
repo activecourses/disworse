@@ -3,7 +3,6 @@ import {
     BaseContext,
     GraphQLRequestContext,
     GraphQLRequestContextWillSendResponse,
-    GraphQLRequestListener,
 } from "@apollo/server";
 import { Plugin } from "@nestjs/apollo";
 import { Logger } from "@nestjs/common";
@@ -13,7 +12,9 @@ import { performance } from "perf_hooks";
 export class ApolloLogger implements ApolloServerPlugin {
     private readonly logger = new Logger("GraphQL");
 
-    async requestDidStart(requestContext: GraphQLRequestContext<BaseContext>) {
+    public async requestDidStart(
+        requestContext: GraphQLRequestContext<BaseContext>,
+    ) {
         const thatLogger = this.logger;
         if (requestContext.request.operationName === "IntrospectionQuery") {
             return;
