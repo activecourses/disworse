@@ -7,10 +7,10 @@
     "license": "UNLICENSED",
     "scripts": {
         "build": "nest build",
-        "start": "nest start",
         "dev": "nest start --exec \"node --env-file=.env\" --watch",
-        "start:debug": "nest start --debug --watch",
-        "start:prod": "node dist/main",
+        "start:old": "nest start --exec \"node --env-file=.env\"",
+        "start:debug": "nest start  --debug --watch",
+        "start": "node --env-file=.env dist/src/main.js",
         "typecheck": "tsc --noEmit",
         "test": "jest",
         "test:watch": "jest --watch",
@@ -32,6 +32,7 @@
         "@nestjs/graphql": "^12.2.0",
         "@nestjs/passport": "^10.0.3",
         "@nestjs/platform-express": "^10.0.0",
+        "@nestjs/serve-static": "^4.0.2",
         "argon2": "^0.41.1",
         "cache-manager": "^6.1.0",
         "class-transformer": "^0.5.1",
@@ -41,12 +42,15 @@
         "express-session": "^1.18.0",
         "graphql": "^16.9.0",
         "graphql-tag": "^2.12.6",
+        "nest-winston": "^1.9.7",
         "passport": "^0.7.0",
         "passport-local": "^1.0.0",
         "pg": "^8.13.0",
         "redis": "^4.7.0",
         "reflect-metadata": "^0.2.0",
-        "rxjs": "^7.8.1"
+        "rxjs": "^7.8.1",
+        "winston": "^3.15.0",
+        "winston-daily-rotate-file": "^5.0.0"
     },
     "devDependencies": {
         "@nestjs/cli": "^10.0.0",

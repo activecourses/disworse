@@ -4,6 +4,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { Request, Response } from "express";
 import { AppResolver } from "./app.resolver";
 import { AppService } from "./app.service";
@@ -11,6 +12,7 @@ import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { validate } from "./utils/env.validate";
+import { ApolloLogger } from "./utils/graphql.logger";
 
 @Module({
     imports: [
@@ -40,6 +42,10 @@ import { validate } from "./utils/env.validate";
             database: String(process.env.POSTGRES_DB),
         }),
         AuthModule,
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, "../../..", "web", "dist"),
+            exclude: ["/api*", "/graphql*"],
+        }),
     ],
     providers: [
         AppService,
@@ -48,6 +54,7 @@ import { validate } from "./utils/env.validate";
             provide: APP_GUARD,
             useClass: AuthenticatedGuard,
         },
+        ApolloLogger,
     ],
 })
 export class AppModule {}
