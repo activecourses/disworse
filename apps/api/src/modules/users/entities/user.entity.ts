@@ -17,27 +17,27 @@ export class User {
     @Field()
     public dob: string;
 
-    @Field({ nullable: true })
-    public bio?: string;
+    @Field(() => String, { nullable: true })
+    public bio?: string | null;
 
-    @Field()
-    public createdAt: string;
+    @Field(() => String, { nullable: true })
+    public profile_image?: string;
 
-    @Field()
-    public updatedAt: string;
+    @Field(() => String, { nullable: true })
+    public cover_image?: string;
 
-    @Field({ nullable: true })
-    public profileImage?: string;
+    @Field(() => String, { nullable: true })
+    public google_id: string | null;
 
-    @Field({ nullable: true })
-    public coverImage?: string;
+    @Field(() => String, { nullable: true })
+    public github_id: string | null;
 
-    @Field({ nullable: true })
-    public google_id: string;
+    @Field(() => String, { nullable: true })
+    public deleted_at?: string | null;
 
-    @Field({ nullable: true })
-    public github_id: string;
+    @Field(() => String, { nullable: true })
+    public created_at?: string | null;
 
-    @Field({ nullable: true })
-    public deleted_at: string;
+    @Field(() => String, { nullable: true })
+    public updated_at?: string | null;
 }
