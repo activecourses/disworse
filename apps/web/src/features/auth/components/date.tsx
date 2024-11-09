@@ -40,18 +40,8 @@ function FieldInfo({ field }: FieldInfoProps) {
     );
 }
 
-interface DateDropdownsProps {
-    form: {
-        Field: (props: {
-            name: keyof MyFormData;
-            children: (
-                field: FieldApi<MyFormData, keyof MyFormData>,
-            ) => React.JSX.Element;
-        }) => React.JSX.Element;
-    };
-}
-
-function DateDropdowns({ form }: DateDropdownsProps) {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+function DateDropdowns({ form }: { form: any }) {
     const [selectedYear, setSelectedYear] = useState<number | null>(null);
     const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
     const [selectedDay, setSelectedDay] = useState<number | null>(null);

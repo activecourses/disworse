@@ -43,6 +43,8 @@ const RegisterSchema = z.object({
     selectedYear: z.number().min(1900).max(new Date().getFullYear()),
 });
 
+type RegisterType = z.infer<typeof RegisterSchema>;
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
     return (
@@ -72,12 +74,8 @@ function RegisterComponent() {
         validators: {
             onChange: RegisterSchema,
         },
-        onSubmit: async ({ value }) => {
-            const formData = {
-                ...value,
-            };
-
-            await auth.login(search.email ? search.email : formData.email);
+        onSubmit: async ({ value }: { value: RegisterType }) => {
+            await auth.login(search.email ? search.email : value.email);
             await router.invalidate();
             await navigate({ to: search.redirect || fallback });
         },
@@ -260,7 +258,12 @@ function RegisterComponent() {
                                                     onCheckedChange={(
                                                         checked,
                                                     ) => {
-                                                        field.setValue(checked);
+                                                        field.setValue(
+                                                            checked ===
+                                                                "indeterminate"
+                                                                ? false
+                                                                : checked,
+                                                        );
                                                     }}
                                                 />
                                                 <Label
