@@ -1,12 +1,14 @@
 import { Servers } from "@/components/layouts/servers";
 import { isBasePath } from "@/lib/utils";
+import { useResponsive } from "@/providers/responsive-provider";
 import {
     Outlet,
     createFileRoute,
     useRouterState,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
-export const Route = createFileRoute("/app/channels/$serverId")({
+export const Route = createFileRoute("/_auth/app/channels/$serverId")({
     component: Server,
 });
 
@@ -16,15 +18,12 @@ export const Route = createFileRoute("/app/channels/$serverId")({
 
 function Server() {
     // const { serverId } = Route.useParams<Params>();
-
-    const isBase = isBasePath(
-        "/app/channels/$serverId",
-        useRouterState().location.pathname,
-    );
     return (
         <>
-            {isBase && <Servers />}
-            {!isBase && <Outlet />}
+            {/* {isBase && <Servers />} */}
+            <Outlet />
+            <Servers />
+            {/* {!isBase && <Outlet />} */}
         </>
     );
 }

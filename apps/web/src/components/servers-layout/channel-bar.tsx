@@ -1,3 +1,4 @@
+import { useResponsive } from "@/providers/responsive-provider";
 import { Link } from "@tanstack/react-router";
 import React, { FC } from "react";
 import BackSVG from "../svgs/back";
@@ -15,10 +16,14 @@ interface ChannelBarProps {
 
 export const ChannelBar: FC<ChannelBarProps> = ({ setIsExpanded }) => {
     const serverId = 1;
+    const { openNavs } = useResponsive();
     return (
-        <div className="custom-scrollbar flex h-[56px] items-center justify-between gap-[8px] overflow-x-auto border-b-[#000] border-b-[1px] border-b-solid bg-secondBlack px-[16px]">
+        <div className="custom-scrollbar flex h-[56px] w-full items-center justify-between gap-[8px] overflow-x-auto border-b-[#000] border-b-[1px] border-b-solid px-[16px]">
             <div className="flex items-center gap-[8px]">
-                <Link to={`/app/channels/${String(serverId)}`}>
+                <Link
+                    to={`/app/channels/${String(serverId)}`}
+                    onClick={() => openNavs()}
+                >
                     <BackSVG />
                 </Link>
                 <ChannelSVG />

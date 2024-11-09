@@ -55,8 +55,8 @@ const Chat = () => {
                     <div
                         className={`${isExpanded ? "hidden md:block md:w-full" : "w-full"}`}
                     >
-                        <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-col gap-[24px] overflow-y-auto px-[8px] py-[24px]">
-                            {Array.from({ length: 14 }).map(
+                        <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-col gap-[24px] overflow-y-scroll px-[8px] py-[24px] ">
+                            {Array.from({ length: 10 }).map(
                                 (_, repeatIndex) => (
                                     <React.Fragment key={repeatIndex}>
                                         {channel.messages.map((message) => (
@@ -99,7 +99,7 @@ const Chat = () => {
                         </div>
                     </div>
                     {isExpanded && (
-                        <div className="custom-scrollbar h-[calc(100vh-56px)] w-full shrink-0 overflow-y-auto bg-[#2B2D31] px-[8px] py-[24px] md:w-[232px]">
+                        <div className="custom-scrollbar h-[calc(100vh-56px)] w-full shrink-0 overflow-y-auto bg-secondBlack px-[8px] py-[24px] md:w-[232px]">
                             <h3 className="mb-[12px] px-[8px] text-[12px] text-gray-400">
                                 ONLINE
                             </h3>

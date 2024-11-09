@@ -46,6 +46,7 @@ export const Sidebar = () => {
                     <div className="mx-auto h-0.5 w-1/2 bg-zinc-600"></div>
 
                     {/* Servers */}
+
                     <div className="flex flex-col items-center justify-center gap-4 pt-4">
                         {Array.from({ length: 20 }).map((_, index) => (
                             <TooltipProvider key={index}>
@@ -53,11 +54,15 @@ export const Sidebar = () => {
                                     <TooltipTrigger className="w-full">
                                         <div className="group relative flex w-full items-center justify-center">
                                             <Link to={`/app/channels/${index}`}>
-                                                <Logo alt={`server ${index}`} />
+                                                <Logo
+                                                    path={`/app/channels/${index}`}
+                                                    pathname={pathname}
+                                                    alt={`server ${index}`}
+                                                />
                                             </Link>
                                             {/* Notification */}
                                             <div
-                                                className={`absolute left-0 flex w-1 items-center justify-center overflow-hidden rounded-full bg-white duration-100 group-hover:top-3 group-hover:h-6 ${pathname === `/app/channels/${index}` ? "top-0 h-full" : "top-1/3 h-2"}`}
+                                                className={`absolute left-0 flex w-1 items-center justify-center overflow-hidden rounded-full bg-white duration-100 ${pathname.startsWith(`/app/channels/${index}`) ? "top-0 h-full" : "top-1/3 h-2 group-hover:top-3 group-hover:h-6"}`}
                                             ></div>
                                         </div>
                                     </TooltipTrigger>

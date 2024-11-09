@@ -113,7 +113,7 @@ export const Servers = () => {
 
     return (
         <div className="flex overflow-hidden">
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Channels server={server} user={user} />
             {isChannel ? (
                 <Chat />

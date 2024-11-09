@@ -2,7 +2,6 @@ import { isBasePath } from "@/lib/utils";
 import { ChannelsProps } from "@/types/servers";
 import { useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-// import { useRouter } from "@tanstack/react-router";
 import React, { FC, useState } from "react";
 import { DiscordToggleDown } from "../svgs/discord-toggle-down";
 import DeafenSVG from "../svgs/profile/deafen";
@@ -33,7 +32,7 @@ export const Channels: FC<ChannelsProps> = ({ server, user }) => {
             >
                 <div className="flex items-center gap-[8px]">
                     <div>
-                        <img src="/public/BotAvatar.png" alt="A" />
+                        {/* <img src="/public/BotAvatar.png" alt="A" /> */}
                     </div>
                     <p>{name}</p>
                 </div>
