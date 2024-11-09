@@ -1,4 +1,3 @@
-import { FriendsNavbar } from "@/components/layouts/friends-navbar";
 import { isBasePath } from "@/lib/utils";
 import { useResponsive } from "@/providers/responsive-provider";
 import { createFileRoute, useRouterState } from "@tanstack/react-router";
