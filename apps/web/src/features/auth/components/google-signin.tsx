@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
 import { oAuthSignIn } from "../utils/utils";
 
-const GitHubSignIn = () => {
+const GoogleSignIn = () => {
     const navigate = useNavigate();
 
     return (
@@ -12,9 +12,9 @@ const GitHubSignIn = () => {
             className="w-full"
             onClick={() => oAuthSignIn(navigate)}
         >
-            Login with Github
+            Login with Google
         </Button>
     );
 };
 
-export default GitHubSignIn;
+export default GoogleSignIn;
