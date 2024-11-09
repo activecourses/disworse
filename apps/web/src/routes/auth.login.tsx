@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import GitHubSignIn from "@/features/auth/components/github-signin";
+import GoogleSignIn from "@/features/auth/components/google-signin";
 import { useAuth } from "@/providers/auth-provider";
 import { Label } from "@radix-ui/react-label";
 import { FieldApi, useForm } from "@tanstack/react-form";
@@ -82,7 +84,7 @@ function LoginComponent() {
                     form.handleSubmit();
                 }}
             >
-                <Card className="mx-auto w-[20rem] max-w-sm">
+                <Card className="mx-auto w-[20rem] max-w-lg lg:w-[32rem]">
                     <CardHeader>
                         <CardTitle className="text-2xl">Login</CardTitle>
                     </CardHeader>
@@ -155,20 +157,8 @@ function LoginComponent() {
                                 )}
                             />
                             <div className="grid gap-2">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    className="w-full"
-                                >
-                                    Login with Google
-                                </Button>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    className="w-full"
-                                >
-                                    Login with Github
-                                </Button>
+                                <GoogleSignIn />
+                                <GitHubSignIn />
                             </div>
                         </div>
                         <div className="mt-4 text-center text-sm">
