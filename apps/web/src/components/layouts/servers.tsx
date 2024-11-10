@@ -1,5 +1,5 @@
-import { checkChannel } from "@/lib/utils";
-import { useRouter } from "@tanstack/react-router";
+import { isBasePath } from "@/lib/utils";
+import { useRouterState } from "@tanstack/react-router";
 import { Channels } from "../servers-layout/channels";
 import Chat from "../servers-layout/chat";
 
@@ -104,9 +104,10 @@ export const Servers = () => {
         ],
     };
 
-    const router = useRouter();
-    const currentUrl = router.state.location.pathname;
-    const isChannel = checkChannel(currentUrl);
+    const isChannel = isBasePath(
+        "/app/channels/$serverId/$channelId",
+        useRouterState().location.pathname,
+    );
 
     // Listen for route changes and update state accordingly
 

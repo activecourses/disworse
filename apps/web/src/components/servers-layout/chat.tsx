@@ -55,7 +55,7 @@ const Chat = () => {
                     <div
                         className={`${isExpanded ? "hidden md:block md:w-full" : "w-full"}`}
                     >
-                        <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-col gap-[24px] overflow-y-scroll px-[8px] py-[24px] ">
+                        <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-col justify-end gap-[24px] overflow-y-auto px-[8px] py-[24px]">
                             {Array.from({ length: 10 }).map(
                                 (_, repeatIndex) => (
                                     <React.Fragment key={repeatIndex}>
