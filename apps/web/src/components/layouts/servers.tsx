@@ -112,15 +112,15 @@ export const Servers = () => {
     // Listen for route changes and update state accordingly
 
     return (
-        <div className="flex overflow-hidden">
+        <>
             <Channels server={server} user={user} />
             {isChannel ? (
                 <Chat />
             ) : (
-                <p className="hidden w-full items-center justify-center bg-mainBlackHover md:flex">
+                <p className="hidden w-full items-center justify-center bg-zinc-600/50 md:flex">
                     Please Select A Channel To Continue
                 </p>
             )}
-        </div>
+        </>
     );
 };

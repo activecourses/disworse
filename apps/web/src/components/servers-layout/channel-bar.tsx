@@ -18,7 +18,7 @@ export const ChannelBar: FC<ChannelBarProps> = ({ setIsExpanded }) => {
     const serverId = 1;
     const { openNavs } = useResponsive();
     return (
-        <div className="custom-scrollbar flex h-[56px] w-full items-center justify-between gap-[8px] overflow-x-auto border-b-[#000] border-b-[1px] border-b-solid px-[16px]">
+        <div className="custom-scrollbar flex h-12 w-full items-center justify-between gap-[8px] overflow-x-auto border-b-[#000] border-b-[1px] border-b-solid px-[16px] py-3">
             <div className="flex items-center gap-[8px]">
                 <Link
                     to={`/app/channels/${String(serverId)}`}

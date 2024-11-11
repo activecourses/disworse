@@ -1,6 +1,6 @@
-import { isBasePath } from "@/lib/utils";
+// import { isBasePath } from "@/lib/utils";
 import { ChannelsProps } from "@/types/servers";
-import { useRouterState } from "@tanstack/react-router";
+// import { useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import React, { FC, useState } from "react";
 import { DiscordToggleDown } from "../svgs/discord-toggle-down";
@@ -14,10 +14,10 @@ import { ChannelItem } from "./channel-item";
 
 export const Channels: FC<ChannelsProps> = ({ server, user }) => {
     const { name, channels } = server;
-    const isBase = isBasePath(
-        "/app/channels/$serverId/$channelId",
-        useRouterState().location.pathname,
-    );
+    // const isBase = isBasePath(
+    //     "/app/channels/$serverId/$channelId",
+    //     useRouterState().location.pathname,
+    // );
 
     const [isUserHovered, setIsUserHovered] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -25,10 +25,10 @@ export const Channels: FC<ChannelsProps> = ({ server, user }) => {
 
     return (
         <div
-            className={`h-screen bg-orange-500 ${isBase ? "hidden md:block" : "w-full"} shrink-0 md:w-[232px]`}
+            className={`flex w-full flex-col bg-zinc-800 text-white lg:w-80 ${window.innerWidth < 1024 ? "slide-in-from-right animate-in duration-700" : ""}`}
         >
             <header
-                className={`flex h-[56px] w-full items-center justify-between border-b-[#000000] border-b-[1px] border-b-solid bg-mainBlack px-[16px] hover:bg-mainBlackHover`}
+                className={`flex h-12 w-full items-center justify-between border-b-[#000000] border-b-[1px] border-b-solid px-[16px] py-3`}
             >
                 <div className="flex items-center gap-[8px]">
                     <div>
@@ -39,7 +39,7 @@ export const Channels: FC<ChannelsProps> = ({ server, user }) => {
                 <DiscordToggleDown />
             </header>
 
-            <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-col overflow-y-auto bg-mainBlack py-[16px]">
+            <div className="custom-scrollbar flex h-[calc(100vh-56px-56px)] flex-1 flex-col overflow-y-auto py-[16px]">
                 {Array.from({ length: 14 }).map((_, repeatIndex) => (
                     <React.Fragment key={repeatIndex}>
                         {channels.map((channel) => (

@@ -49,9 +49,9 @@ const Chat = () => {
 
     return (
         <>
-            <div className="w-full bg-secondBlack">
+            <div className="flex w-full flex-col bg-zinc-600/50">
                 <ChannelBar setIsExpanded={setIsExpanded} />
-                <div className="flex">
+                <div className="flex h-full">
                     <div
                         className={`${isExpanded ? "hidden md:block md:w-full" : "w-full"}`}
                     >
@@ -99,7 +99,7 @@ const Chat = () => {
                         </div>
                     </div>
                     {isExpanded && (
-                        <div className="custom-scrollbar h-[calc(100vh-56px)] w-full shrink-0 overflow-y-auto bg-secondBlack px-[8px] py-[24px] md:w-[232px]">
+                        <div className="custom-scrollbar h-full w-full shrink-0 overflow-y-auto bg-zinc-800 px-[8px] py-[24px] md:w-[232px]">
                             <h3 className="mb-[12px] px-[8px] text-[12px] text-gray-400">
                                 ONLINE
                             </h3>
