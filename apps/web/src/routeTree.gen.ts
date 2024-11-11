@@ -18,8 +18,11 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AuthRegisterImport } from './routes/auth.register'
 import { Route as AuthLoginImport } from './routes/auth.login'
 import { Route as AuthAppImport } from './routes/_auth.app'
+import { Route as AuthAppChannelsImport } from './routes/_auth.app.channels'
 import { Route as AuthAppChannelsMeImport } from './routes/_auth.app.channels.me'
+import { Route as AuthAppChannelsServerIdImport } from './routes/_auth.app.channels.$serverId'
 import { Route as AuthAppChannelsMeFriendIdImport } from './routes/_auth.app.channels.me.$friendId'
+import { Route as AuthAppChannelsServerIdChannelIdImport } from './routes/_auth.app.channels.$serverId.$channelId'
 
 // Create/Update Routes
 
@@ -58,15 +61,31 @@ const AuthAppRoute = AuthAppImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthAppChannelsMeRoute = AuthAppChannelsMeImport.update({
-  path: '/channels/me',
+const AuthAppChannelsRoute = AuthAppChannelsImport.update({
+  path: '/channels',
   getParentRoute: () => AuthAppRoute,
+} as any)
+
+const AuthAppChannelsMeRoute = AuthAppChannelsMeImport.update({
+  path: '/me',
+  getParentRoute: () => AuthAppChannelsRoute,
+} as any)
+
+const AuthAppChannelsServerIdRoute = AuthAppChannelsServerIdImport.update({
+  path: '/$serverId',
+  getParentRoute: () => AuthAppChannelsRoute,
 } as any)
 
 const AuthAppChannelsMeFriendIdRoute = AuthAppChannelsMeFriendIdImport.update({
   path: '/$friendId',
   getParentRoute: () => AuthAppChannelsMeRoute,
 } as any)
+
+const AuthAppChannelsServerIdChannelIdRoute =
+  AuthAppChannelsServerIdChannelIdImport.update({
+    path: '/$channelId',
+    getParentRoute: () => AuthAppChannelsServerIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -121,12 +140,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterImport
       parentRoute: typeof rootRoute
     }
+    '/_auth/app/channels': {
+      id: '/_auth/app/channels'
+      path: '/channels'
+      fullPath: '/app/channels'
+      preLoaderRoute: typeof AuthAppChannelsImport
+      parentRoute: typeof AuthAppImport
+    }
+    '/_auth/app/channels/$serverId': {
+      id: '/_auth/app/channels/$serverId'
+      path: '/$serverId'
+      fullPath: '/app/channels/$serverId'
+      preLoaderRoute: typeof AuthAppChannelsServerIdImport
+      parentRoute: typeof AuthAppChannelsImport
+    }
     '/_auth/app/channels/me': {
       id: '/_auth/app/channels/me'
-      path: '/channels/me'
+      path: '/me'
       fullPath: '/app/channels/me'
       preLoaderRoute: typeof AuthAppChannelsMeImport
-      parentRoute: typeof AuthAppImport
+      parentRoute: typeof AuthAppChannelsImport
+    }
+    '/_auth/app/channels/$serverId/$channelId': {
+      id: '/_auth/app/channels/$serverId/$channelId'
+      path: '/$channelId'
+      fullPath: '/app/channels/$serverId/$channelId'
+      preLoaderRoute: typeof AuthAppChannelsServerIdChannelIdImport
+      parentRoute: typeof AuthAppChannelsServerIdImport
     }
     '/_auth/app/channels/me/$friendId': {
       id: '/_auth/app/channels/me/$friendId'
@@ -140,6 +180,21 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthAppChannelsServerIdRouteChildren {
+  AuthAppChannelsServerIdChannelIdRoute: typeof AuthAppChannelsServerIdChannelIdRoute
+}
+
+const AuthAppChannelsServerIdRouteChildren: AuthAppChannelsServerIdRouteChildren =
+  {
+    AuthAppChannelsServerIdChannelIdRoute:
+      AuthAppChannelsServerIdChannelIdRoute,
+  }
+
+const AuthAppChannelsServerIdRouteWithChildren =
+  AuthAppChannelsServerIdRoute._addFileChildren(
+    AuthAppChannelsServerIdRouteChildren,
+  )
+
 interface AuthAppChannelsMeRouteChildren {
   AuthAppChannelsMeFriendIdRoute: typeof AuthAppChannelsMeFriendIdRoute
 }
@@ -151,12 +206,26 @@ const AuthAppChannelsMeRouteChildren: AuthAppChannelsMeRouteChildren = {
 const AuthAppChannelsMeRouteWithChildren =
   AuthAppChannelsMeRoute._addFileChildren(AuthAppChannelsMeRouteChildren)
 
-interface AuthAppRouteChildren {
+interface AuthAppChannelsRouteChildren {
+  AuthAppChannelsServerIdRoute: typeof AuthAppChannelsServerIdRouteWithChildren
   AuthAppChannelsMeRoute: typeof AuthAppChannelsMeRouteWithChildren
 }
 
-const AuthAppRouteChildren: AuthAppRouteChildren = {
+const AuthAppChannelsRouteChildren: AuthAppChannelsRouteChildren = {
+  AuthAppChannelsServerIdRoute: AuthAppChannelsServerIdRouteWithChildren,
   AuthAppChannelsMeRoute: AuthAppChannelsMeRouteWithChildren,
+}
+
+const AuthAppChannelsRouteWithChildren = AuthAppChannelsRoute._addFileChildren(
+  AuthAppChannelsRouteChildren,
+)
+
+interface AuthAppRouteChildren {
+  AuthAppChannelsRoute: typeof AuthAppChannelsRouteWithChildren
+}
+
+const AuthAppRouteChildren: AuthAppRouteChildren = {
+  AuthAppChannelsRoute: AuthAppChannelsRouteWithChildren,
 }
 
 const AuthAppRouteWithChildren =
@@ -180,7 +249,10 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/channels': typeof AuthAppChannelsRouteWithChildren
+  '/app/channels/$serverId': typeof AuthAppChannelsServerIdRouteWithChildren
   '/app/channels/me': typeof AuthAppChannelsMeRouteWithChildren
+  '/app/channels/$serverId/$channelId': typeof AuthAppChannelsServerIdChannelIdRoute
   '/app/channels/me/$friendId': typeof AuthAppChannelsMeFriendIdRoute
 }
 
@@ -192,7 +264,10 @@ export interface FileRoutesByTo {
   '/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/channels': typeof AuthAppChannelsRouteWithChildren
+  '/app/channels/$serverId': typeof AuthAppChannelsServerIdRouteWithChildren
   '/app/channels/me': typeof AuthAppChannelsMeRouteWithChildren
+  '/app/channels/$serverId/$channelId': typeof AuthAppChannelsServerIdChannelIdRoute
   '/app/channels/me/$friendId': typeof AuthAppChannelsMeFriendIdRoute
 }
 
@@ -205,7 +280,10 @@ export interface FileRoutesById {
   '/_auth/app': typeof AuthAppRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/_auth/app/channels': typeof AuthAppChannelsRouteWithChildren
+  '/_auth/app/channels/$serverId': typeof AuthAppChannelsServerIdRouteWithChildren
   '/_auth/app/channels/me': typeof AuthAppChannelsMeRouteWithChildren
+  '/_auth/app/channels/$serverId/$channelId': typeof AuthAppChannelsServerIdChannelIdRoute
   '/_auth/app/channels/me/$friendId': typeof AuthAppChannelsMeFriendIdRoute
 }
 
@@ -219,7 +297,10 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth/login'
     | '/auth/register'
+    | '/app/channels'
+    | '/app/channels/$serverId'
     | '/app/channels/me'
+    | '/app/channels/$serverId/$channelId'
     | '/app/channels/me/$friendId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -230,7 +311,10 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth/login'
     | '/auth/register'
+    | '/app/channels'
+    | '/app/channels/$serverId'
     | '/app/channels/me'
+    | '/app/channels/$serverId/$channelId'
     | '/app/channels/me/$friendId'
   id:
     | '__root__'
@@ -241,7 +325,10 @@ export interface FileRouteTypes {
     | '/_auth/app'
     | '/auth/login'
     | '/auth/register'
+    | '/_auth/app/channels'
+    | '/_auth/app/channels/$serverId'
     | '/_auth/app/channels/me'
+    | '/_auth/app/channels/$serverId/$channelId'
     | '/_auth/app/channels/me/$friendId'
   fileRoutesById: FileRoutesById
 }
@@ -303,7 +390,7 @@ export const routeTree = rootRoute
       "filePath": "_auth.app.tsx",
       "parent": "/_auth",
       "children": [
-        "/_auth/app/channels/me"
+        "/_auth/app/channels"
       ]
     },
     "/auth/login": {
@@ -312,12 +399,31 @@ export const routeTree = rootRoute
     "/auth/register": {
       "filePath": "auth.register.tsx"
     },
+    "/_auth/app/channels": {
+      "filePath": "_auth.app.channels.tsx",
+      "parent": "/_auth/app",
+      "children": [
+        "/_auth/app/channels/$serverId",
+        "/_auth/app/channels/me"
+      ]
+    },
+    "/_auth/app/channels/$serverId": {
+      "filePath": "_auth.app.channels.$serverId.tsx",
+      "parent": "/_auth/app/channels",
+      "children": [
+        "/_auth/app/channels/$serverId/$channelId"
+      ]
+    },
     "/_auth/app/channels/me": {
       "filePath": "_auth.app.channels.me.tsx",
-      "parent": "/_auth/app",
+      "parent": "/_auth/app/channels",
       "children": [
         "/_auth/app/channels/me/$friendId"
       ]
+    },
+    "/_auth/app/channels/$serverId/$channelId": {
+      "filePath": "_auth.app.channels.$serverId.$channelId.tsx",
+      "parent": "/_auth/app/channels/$serverId"
     },
     "/_auth/app/channels/me/$friendId": {
       "filePath": "_auth.app.channels.me.$friendId.tsx",
