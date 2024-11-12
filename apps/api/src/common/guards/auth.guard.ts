@@ -17,10 +17,16 @@ export class AuthenticatedGuard implements CanActivate {
             return true;
         }
 
-        // Switch to GraphQL context
-        const ctx = GqlExecutionContext.create(context);
-        const { req } = ctx.getContext();
+        let request;
 
-        return req.isAuthenticated();
+        if (context.getType() === "http") {
+            // Handle REST requests
+            request = context.switchToHttp().getRequest();
+        } else {
+            // Handle GraphQL requests
+            const ctx = GqlExecutionContext.create(context);
+            request = ctx.getContext().req;
+        }
+        return request.isAuthenticated();
     }
 }

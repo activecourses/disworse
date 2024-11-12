@@ -7,7 +7,7 @@ export class LocalAuthGuard extends AuthGuard("local") {
     public async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx = GqlExecutionContext.create(context);
         const { req } = ctx.getContext();
-
+        console.log(req.body);
         // For GraphQL mutations, set the request body from args
         if (ctx.getType() === "graphql") {
             const args = ctx.getArgs();

@@ -11,6 +11,7 @@ import { AppService } from "./app.service";
 import { AuthenticatedGuard } from "./common/guards/auth.guard";
 import { DrizzleModule } from "./drizzle/drizzle.module";
 import { AuthModule } from "./modules/auth/auth.module";
+import { UserModule } from "./modules/users/user.module";
 import { validate } from "./utils/env.validate";
 import { ApolloLogger } from "./utils/graphql.logger";
 
@@ -42,6 +43,7 @@ import { ApolloLogger } from "./utils/graphql.logger";
             database: String(process.env.POSTGRES_DB),
         }),
         AuthModule,
+        UserModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, "../../..", "web", "dist"),
             exclude: ["/api*", "/graphql*"],
